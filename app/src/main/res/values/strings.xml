@@ -13,5 +13,13 @@
     <string name="confirm_password">Confirm password</string>
     <string name="sign_up">Sign up</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="pothole_detail">Pothole detail</string>
+    <string name="profile_picture">profile picture</string>
+    <string name="potholes_detected">potholes detected</string>
+    <string name="distances_traveled">Distances traveled</string>
+    <string name="distribution_potholes_by_severity_level">Distribution potholes by severity level</string>
+    <string name="back_button">back button</string>
+    <string name="pothole_img">Pothole img</string>
+    <string name="score">Score</string>
 
 </resources>

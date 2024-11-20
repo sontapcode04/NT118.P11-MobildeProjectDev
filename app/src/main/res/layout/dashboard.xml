@@ -182,14 +182,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/green"
-                android:text="@string/low"
+                android:text="Low"
                 android:padding="4dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/red"
-                android:text="@string/high"
+                android:text="High"
                 android:padding="4dp"
                 android:layout_marginStart="8dp"/>
 
@@ -197,7 +197,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/orange"
-                android:text="@string/medium"
+                android:text="Medium"
                 android:padding="4dp"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
@@ -205,7 +205,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/detected_potholes"
+            android:text="Detected potholes"
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_marginTop="16dp"

@@ -28,6 +28,8 @@
         <activity
             android:name=".logout"
             android:exported="false" />
+        <activity android:name=".SignUp"
+            android:exported="false" />
 
     </application>
 
