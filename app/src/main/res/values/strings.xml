@@ -21,5 +21,8 @@
     <string name="back_button">back button</string>
     <string name="pothole_img">Pothole img</string>
     <string name="score">Score</string>
+    <string name="low">\ \ Low</string>
+    <string name="high">\ \ High</string>
+    <string name="medium">\ \ Medium</string>
 
 </resources>

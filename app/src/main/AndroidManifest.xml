@@ -30,7 +30,10 @@
             android:exported="false" />
         <activity android:name=".SignUp"
             android:exported="false" />
-
+        <activity android:name=".dashboard"
+            android:exported="false" />
+        <activity android:name=".pothole_detail"
+            android:exported="false" />
     </application>
 
 </manifest>
