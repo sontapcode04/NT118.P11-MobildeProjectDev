@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Màu nền của button -->
+    <solid android:color="#003A8C" /> <!-- Thay #003A8C bằng mã màu của bạn -->
+
+    <!-- Bo tròn góc -->
+    <corners android:radius="16dp" /> <!-- Điều chỉnh radius để bo tròn phù hợp -->
+
+    <!-- Bạn có thể thêm stroke nếu muốn có viền cho button -->
+    <!-- <stroke android:width="2dp" android:color="#FFFFFF" /> -->
+</shape>
