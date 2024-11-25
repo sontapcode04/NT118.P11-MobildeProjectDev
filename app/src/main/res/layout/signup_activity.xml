@@ -7,15 +7,31 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="16dp"
-    tools:context=".Signin">
-    <!--    đổi tên file java khác-->
+    tools:context=".SignUp">
 
-    <!--    <Spinner-->
-    <!--        android:id="@+id/languageSwitcherButton"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_gravity="end"-->
-    <!--        />-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/sign_up"
+            android:clickable="true"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginHorizontal="10dp"
+            android:id="@+id/back"
+            android:clickable="true"
+            android:src="@drawable/back"/>
+    </FrameLayout>
+
     <ImageView
         android:id="@+id/app_icon"
         android:layout_width="120dp"
@@ -28,21 +44,22 @@
     <EditText
         android:id="@+id/fullname"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginBottom="12dp"
         android:autofillHints="username"
-        android:background="#f8fafc"
+        android:background="@drawable/coner"
         android:drawableStart="@drawable/user_icon"
         android:hint="@string/fullname"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp" />
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:drawablePadding="15dp"/>
 
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:autofillHints="email"
         android:hint="@string/tvEmail"
         android:inputType="textEmailAddress"
@@ -50,39 +67,43 @@
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         android:layout_marginBottom="12dp"
-        android:background="#f8fafc"/>
+        android:background="@drawable/coner"
+        android:drawablePadding="15dp"/>
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:autofillHints=""
         android:hint="@string/editTextPassword"
         android:inputType="textPassword"
-        android:drawableStart="@drawable/password_icon"
+        android:drawableStart="@drawable/lock"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         android:layout_marginBottom="8dp"
-        android:background="#f8fafc"/>
+        android:background="@drawable/coner"
+        android:drawablePadding="15dp"/>
 
     <EditText
         android:id="@+id/confirmpassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:autofillHints=""
         android:hint="@string/confirm_password"
         android:inputType="textPassword"
-        android:drawableStart="@drawable/password_icon"
+        android:drawableStart="@drawable/lock"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         android:layout_marginBottom="8dp"
-        android:background="#f8fafc"/>
+        android:background="@drawable/coner"
+        android:drawablePadding="15dp"/>
 
     <Button
         android:id="@+id/sign_up_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sign_up"
+        android:background="@drawable/coner1"
         android:backgroundTint="#003a8c"
         android:textColor="@android:color/white"
         android:layout_marginBottom="16dp" />

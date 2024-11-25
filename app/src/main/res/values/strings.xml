@@ -24,5 +24,6 @@
     <string name="low">\ \ Low</string>
     <string name="high">\ \ High</string>
     <string name="medium">\ \ Medium</string>
+    <string name="report">Report</string>
 
 </resources>

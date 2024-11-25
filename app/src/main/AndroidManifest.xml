@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Profile"
+            android:name=".profile"
             android:exported="false" />
         <activity
             android:name=".logout"
