@@ -7,6 +7,31 @@
     android:padding="16dp"
     tools:context=".Signin">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/sign_up"
+            android:clickable="true"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginHorizontal="10dp"
+            android:id="@+id/back"
+            android:clickable="true"
+            android:src="@drawable/back"/>
+
+    </FrameLayout>
+
     <ImageView
         android:id="@+id/app_icon"
         android:layout_width="120dp"
@@ -18,28 +43,31 @@
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginBottom="8dp"
         android:autofillHints=""
-        android:background="#f8fafc"
-        android:drawableStart="@drawable/password_icon"
+        android:background="@drawable/coner"
+        android:drawableStart="@drawable/ic_email"
         android:hint="@string/tvEmail"
         android:inputType="textEmailAddress"
         android:paddingStart="12dp"
-        android:paddingEnd="12dp" />
+        android:paddingEnd="12dp"
+        android:drawablePadding="15dp"/>
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginBottom="8dp"
         android:autofillHints=""
-        android:background="#f8fafc"
-        android:drawableStart="@drawable/password_icon"
+        android:background="@drawable/coner"
+        android:drawableStart="@drawable/lock"
         android:hint="@string/editTextPassword"
         android:inputType="textPassword"
         android:paddingStart="12dp"
-        android:paddingEnd="12dp" />
+        android:paddingEnd="12dp"
+        android:layout_marginTop="10dp"
+        android:drawablePadding="15dp"/>
 
     <TextView
         android:id="@+id/forgot_password"
@@ -58,12 +86,13 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="#003a8c"
         android:text="@string/sign_in_button"
+        android:background="@drawable/coner"
         android:textColor="@android:color/white"
         android:textSize="16sp" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="@string/tvOR"
@@ -74,6 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
+        android:background="@drawable/coner"
         android:backgroundTint="@android:color/white"
         android:contentDescription="@string/log_in_button_gg"
         android:drawableLeft="@drawable/gg_icon"
