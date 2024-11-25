@@ -3,6 +3,8 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="16dp"
+    android:paddingStart="0dp"
+    android:paddingEnd="0dp"
     tools:context=".dashboard">
 
     <LinearLayout
@@ -18,7 +20,7 @@
             android:orientation="horizontal"
             android:padding="16dp"
             android:gravity="center_vertical"
-            android:background="@drawable/background_user">
+            android:background="@drawable/coner1">
 
             <ImageView
                 android:layout_width="64dp"
@@ -37,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hi, user"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/white"
                     android:textStyle="bold"
                     android:textSize="18sp" />
 
@@ -45,19 +47,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/fullname"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3999"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/white" />
             </LinearLayout>
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/icon_noti"
+                android:src="@drawable/noti_icon"
                 android:contentDescription="Notifications Icon" />
         </LinearLayout>
 
@@ -65,8 +67,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Report"
+            android:text="@string/report"
             android:textStyle="bold"
+            android:paddingStart="16dp"
+            android:textColor="@color/blue"
             android:textSize="16sp"
             android:layout_marginTop="16dp"
             android:layout_gravity="start"/>
@@ -76,6 +80,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:layout_marginTop="8dp">
 
             <LinearLayout
@@ -83,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="12dp"
+                android:background="@drawable/coner"
                 android:layout_marginBottom="8dp">
 
                 <ImageView
@@ -103,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/potholes_detected"
-                        android:textColor="@android:color/holo_blue_dark" />
+                        android:textColor="@color/blue" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -113,12 +120,12 @@
                         android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="12dp"
+                android:background="@drawable/coner"
                 android:layout_marginBottom="8dp">
 
                 <ImageView
@@ -139,7 +146,44 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/distances_traveled"
-                        android:textColor="@android:color/holo_blue_dark" />
+                        android:textColor="@color/blue" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="54"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:background="@drawable/coner"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/report_icon"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="Report Icon" />
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_online"
+                        android:textColor="@color/blue" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -159,6 +203,8 @@
             android:text="@string/distribution_potholes_by_severity_level"
             android:textStyle="bold"
             android:textSize="16sp"
+            android:paddingStart="16dp"
+            android:textColor="@color/blue"
             android:layout_marginTop="16dp"
             android:layout_gravity="start"/>
 
@@ -207,9 +253,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Detected potholes"
+            android:text="@string/detected_potholes"
             android:textStyle="bold"
+            android:textColor="@color/blue"
             android:textSize="16sp"
+            android:paddingStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_gravity="start"/>
 

@@ -101,8 +101,9 @@
     <Button
         android:id="@+id/google_sign_in_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginBottom="24dp"
+        android:paddingLeft="20dp"
         android:background="@drawable/coner"
         android:backgroundTint="@android:color/white"
         android:contentDescription="@string/log_in_button_gg"
