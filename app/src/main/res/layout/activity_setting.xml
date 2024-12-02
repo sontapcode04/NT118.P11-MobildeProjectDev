@@ -7,11 +7,12 @@
     tools:context=".setting">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="87dp"
-        android:layout_marginStart="20dp"
+        android:id="@+id/linear_layout_card"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/coner1"
         android:orientation="horizontal"
         android:padding="16dp">
@@ -60,7 +61,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:contentDescription="Star Icon"
-            android:src="@drawable/img_1" />
+            android:src="@drawable/img_star" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -73,11 +74,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="367dp"
-        android:layout_height="218dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="20dp"
+        android:id="@+id/linear__layout_account_setting"
+        android:layout_below="@+id/linear_layout_card"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
         android:padding="15dp">
 
@@ -101,7 +103,7 @@
                 android:id="@+id/imgaccount"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/img">
+                android:src="@drawable/img_user">
 
             </ImageView>
 
@@ -110,9 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="217dp"
-                android:layout_toStartOf="@+id/imgaccount1"
-                android:text="Profile"
+                android:text="@string/profile"
                 android:textStyle="bold">
 
             </TextView>
@@ -138,7 +138,7 @@
                 android:id="@id/imgpassword"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/img_3">
+                android:src="@drawable/img_lock">
 
             </ImageView>
 
@@ -147,9 +147,7 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="135dp"
-                android:layout_toStartOf="@+id/imgpassword"
-                android:text="Change password"
+                android:text="@string/change_password"
                 android:textStyle="bold">
 
             </TextView>
@@ -174,7 +172,7 @@
                 android:id="@+id/imgreward"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/img_4">
+                android:src="@drawable/img_reward">
 
             </ImageView>
 
@@ -183,9 +181,7 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="135dp"
-                android:layout_toStartOf="@+id/imgreward"
-                android:text="Reward"
+                android:text="@string/reward"
                 android:textStyle="bold">
 
 
@@ -218,11 +214,12 @@
 
 
     <LinearLayout
+        android:id="@+id/linear_layout_appsetting"
+        android:layout_below="@+id/linear__layout_account_setting"
+        android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="310dp"
-        android:layout_marginEnd="20dp"
         android:orientation="vertical"
         android:padding="15dp">
 
@@ -245,7 +242,7 @@
                 android:id="@+id/imglanguage1"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/img_5">
+                android:src="@drawable/img_changelanguage">
 
             </ImageView>
 
@@ -254,9 +251,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="180dp"
-                android:layout_toStartOf="@+id/imglanguage"
-                android:text="Language"
+                android:text="@string/language"
                 android:textStyle="bold">
 
             </TextView>
@@ -284,16 +279,16 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/imglogout2"
+            android:id="@+id/imglogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
 
             <ImageView
-                android:id="@+id/imglogout1"
+                android:id="@+id/imglogout_logo"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/img_6">
+                android:src="@drawable/img_logout">
 
             </ImageView>
 
@@ -302,16 +297,14 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="133dp"
-                android:layout_toStartOf="@+id/imglogout"
-                android:text="Log out"
+                android:text="@string/log_out"
                 android:textColor="#E72323"
                 android:textStyle="bold">
 
             </TextView>
 
             <ImageView
-                android:id="@+id/imglogout"
+                android:id="@+id/imglogout_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -347,16 +340,16 @@
 
                 <ImageView
                     android:id="@+id/imageView1"
-                    android:layout_width="match_parent"
+                    android:layout_width="172dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    app:srcCompat="@drawable/img_8" />
+                    app:srcCompat="@drawable/img_home" />
 
                 <TextView
                     android:id="@+id/textView1"
-                    android:layout_width="match_parent"
+                    android:layout_width="172dp"
                     android:layout_height="wrap_content"
-                    android:text="Home"
+                    android:text="@string/home"
                     android:textAlignment="center"
                     android:textStyle="bold" />
 
@@ -371,10 +364,9 @@
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="86dp"
                     android:layout_marginTop="-10dp"
-                    app:srcCompat="@drawable/img_7" />
-
+                    app:srcCompat="@drawable/img_map" />
 
 
             </LinearLayout>
@@ -387,16 +379,16 @@
 
                 <ImageView
                     android:id="@+id/imageView3"
-                    android:layout_width="match_parent"
+                    android:layout_width="98dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    app:srcCompat="@drawable/img_9" />
+                    app:srcCompat="@drawable/img_setting" />
 
                 <TextView
                     android:id="@+id/textView"
-                    android:layout_width="match_parent"
+                    android:layout_width="98dp"
                     android:layout_height="wrap_content"
-                    android:text="Setting"
+                    android:text="@string/setting"
                     android:textAlignment="center"
                     android:textStyle="bold" />
             </LinearLayout>

@@ -10,6 +10,7 @@
 
 
     <FrameLayout
+        android:id="@+id/toolbar_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -23,17 +24,19 @@
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
+
         <ImageView
+            android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:layout_marginHorizontal="10dp"
-            android:id="@+id/back"
             android:clickable="true"
-            android:src="@drawable/back"/>
+            android:src="@drawable/back" />
 
     </FrameLayout>
     <LinearLayout
+        android:id="@+id/linear_layout_imageuser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -52,16 +55,18 @@
 
 
     <LinearLayout
-        android:layout_width="397dp"
-        android:layout_height="220dp"
-        android:layout_marginTop="250dp"
+        android:id="@+id/linear_layout_person_information"
+        android:layout_below="@+id/linear_layout_imageuser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="Personal information"
+            android:text="@string/personal_information"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:paddingLeft="36dp"
@@ -98,20 +103,17 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="400dp"
+    <RelativeLayout
+        android:id="@+id/linear_button_update"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="310dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="18dp"
         android:orientation="vertical"
         android:padding="15dp">
 
         <Button
             android:id="@+id/btnupdate"
+            android:layout_centerInParent="true"
             android:layout_width="323dp"
             android:layout_height="70dp"
             android:layout_margin="10dp"
@@ -122,7 +124,7 @@
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>

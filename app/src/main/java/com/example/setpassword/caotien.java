@@ -1,4 +1,4 @@
-package com.example.mobileproject;
+package com.example.setpassword;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +24,7 @@ public class caotien extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(caotien.this, setting.class);
+                Intent intent = new Intent(caotien.this, setpassword.class);
                 startActivity(intent);
 
             }
