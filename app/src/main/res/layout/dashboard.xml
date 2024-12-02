@@ -60,7 +60,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/noti_icon"
-                android:contentDescription="Notifications Icon" />
+                android:contentDescription="@string/notifications_icon" />
         </LinearLayout>
 
         <!-- Report Section -->
@@ -97,7 +97,7 @@
                     android:layout_height="50dp"
                     android:src="@drawable/report_icon"
                     android:layout_marginEnd="16dp"
-                    android:contentDescription="Report Icon" />
+                    android:contentDescription="@string/report_icon" />
 
 
                 <LinearLayout
@@ -170,7 +170,7 @@
                     android:layout_height="50dp"
                     android:src="@drawable/report_icon"
                     android:layout_marginEnd="16dp"
-                    android:contentDescription="Report Icon" />
+                    android:contentDescription="@string/report_icon" />
 
 
                 <LinearLayout

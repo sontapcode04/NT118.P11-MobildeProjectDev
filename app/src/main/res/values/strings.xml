@@ -24,4 +24,9 @@
     <string name="low">\ \ Low</string>
     <string name="high">\ \ High</string>
     <string name="medium">\ \ Medium</string>
+    <string name="detected_potholes">Detected potholes</string>
+    <string name="report">Report</string>
+    <string name="user_online">User online</string>
+    <string name="notifications_icon">Notifications Icon</string>
+    <string name="report_icon">Report Icon</string>
 </resources>

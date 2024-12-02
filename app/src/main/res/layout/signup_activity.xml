@@ -1,4 +1,3 @@
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,12 +10,11 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        >
+        android:layout_height="wrap_content">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:focusable="true"
             android:text="@string/sign_up"
             android:clickable="true"
             android:gravity="center"
@@ -25,12 +23,13 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/back"
+            android:id="@+id/backToSignIn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="left|center_vertical"
             android:layout_marginHorizontal="10dp"
             android:clickable="true"
+            android:focusable="true"
             android:src="@drawable/back" />
 
     </FrameLayout>
@@ -124,7 +123,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:text="@string/already_have_an_account" />
 
         <TextView
@@ -132,7 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_in_button"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_marginStart="4dp"
             android:textColor="#003a8c"/>
     </LinearLayout>
