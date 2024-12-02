@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".caotien">
+
+
+    <FrameLayout
+        android:id="@+id/toolbar_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Profile"
+            android:clickable="true"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginHorizontal="10dp"
+            android:clickable="true"
+            android:src="@drawable/back" />
+
+    </FrameLayout>
+    <LinearLayout
+        android:id="@+id/linear_layout_imageuser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+
+            android:layout_marginTop="10dp"
+            android:src="@drawable/profile">
+
+        </ImageView>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linear_layout_person_information"
+        android:layout_below="@+id/linear_layout_imageuser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/personal_information"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:paddingLeft="36dp"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/editpassword"
+            android:layout_width="327dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/coner"
+            android:drawableLeft="@drawable/person"
+            android:drawablePadding="15dp"
+            android:hint="Nguyễn Văn A"
+            android:inputType="text"
+            android:textStyle="bold"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
+
+        <EditText
+            android:id="@+id/editcfpassword"
+            android:layout_width="327dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/coner"
+            android:drawableLeft="@drawable/ic_email"
+            android:drawablePadding="15dp"
+            android:hint="19522172@gm.uit.edu.vn"
+            android:inputType="text"
+            android:textStyle="bold"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/linear_button_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <Button
+            android:id="@+id/btnupdate"
+            android:layout_centerInParent="true"
+            android:layout_width="323dp"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/coner1"
+            android:text="Update"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
