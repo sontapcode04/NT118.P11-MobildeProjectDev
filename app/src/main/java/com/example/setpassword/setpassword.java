@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mobileproject.R;
+
 public class setpassword extends AppCompatActivity {
     Context context;
 

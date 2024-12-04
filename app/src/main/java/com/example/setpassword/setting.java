@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mobileproject.R;
+
 public class setting extends AppCompatActivity {
     Dialog dialog;
     Button btnLogout, btnCancel;

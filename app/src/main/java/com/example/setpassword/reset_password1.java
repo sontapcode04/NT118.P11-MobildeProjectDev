@@ -8,6 +8,8 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mobileproject.R;
+
 public class reset_password1 extends AppCompatActivity {
 
     @Override

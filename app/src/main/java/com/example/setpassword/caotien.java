@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mobileproject.R;
+
 public class caotien extends AppCompatActivity {
     Context context;
     ImageView back;
