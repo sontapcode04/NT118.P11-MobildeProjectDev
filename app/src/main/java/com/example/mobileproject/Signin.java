@@ -21,5 +21,14 @@ public class Signin extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        TextView tvForgotpassword = findViewById(R.id.forgot_password);
+        tvForgotpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Signin.this, reset_password_1.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -58,7 +58,7 @@ public class setting extends AppCompatActivity {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(setting.this, reset_password1.class);
+                Intent intent = new Intent(setting.this, reset_your_password_1.class);
                 startActivity(intent);
             }
         });

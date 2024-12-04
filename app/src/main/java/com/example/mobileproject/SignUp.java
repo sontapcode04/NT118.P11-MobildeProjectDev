@@ -28,10 +28,17 @@ public class SignUp extends AppCompatActivity {
         tvSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUp.this, Signin.class);
+                Intent intent = new Intent(SignUp.this, MainActivityCongSon.class);
                 startActivity(intent);
             }
         });
+//        ImageView backButton = findViewById(R.id.backToSignIn);
+//        backButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
     }
 }
