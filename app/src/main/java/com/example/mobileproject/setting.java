@@ -1,4 +1,4 @@
-package com.example.setpassword;
+package com.example.mobileproject;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -7,9 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mobileproject.R;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class setting extends AppCompatActivity {
     Dialog dialog;

@@ -1,4 +1,4 @@
-package com.example.setpassword;
+package com.example.mobileproject;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +9,6 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.mobileproject.R;
 
 public class setpassword extends AppCompatActivity {
     Context context;
