@@ -30,6 +30,15 @@ public class set_your_password extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button btnUpdate = findViewById(R.id.btnupdate);
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(set_your_password.this, password_reset_successful.class);
+                startActivity(intent);
+                finish(); // Kết thúc activity hiện tại sau khi chuyển màn hình
+            }
+        });
 
 
         backButton.setOnClickListener(new View.OnClickListener() {

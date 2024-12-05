@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivityCongSon extends AppCompatActivity {
+public class welcome extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,14 +21,14 @@ public class MainActivityCongSon extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivityCongSon.this, Signin.class);
+                Intent intent = new Intent(welcome.this, Signin.class);
                 startActivity(intent);
             }
         });
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivityCongSon.this, SignUp.class);
+                Intent intent = new Intent(welcome.this, SignUp.class);
                 startActivity(intent);
             }
         });

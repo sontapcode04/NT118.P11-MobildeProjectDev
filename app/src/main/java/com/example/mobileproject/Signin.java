@@ -3,6 +3,7 @@ package com.example.mobileproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,15 @@ public class Signin extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Signin.this, SignUp.class);
                 startActivity(intent);
+            }
+        });
+        ImageView backButton = findViewById(R.id.back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Signin.this, welcome.class);
+                startActivity(intent);
+                finish();
             }
         });
 
