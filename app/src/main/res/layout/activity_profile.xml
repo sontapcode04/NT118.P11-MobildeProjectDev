@@ -118,7 +118,7 @@
             android:layout_height="70dp"
             android:layout_margin="10dp"
             android:layout_marginTop="0dp"
-            android:background="@drawable/coner1"
+            android:backgroundTint="@color/blue"
             android:text="Update"
             android:textAllCaps="false"
             android:textColor="@color/white"

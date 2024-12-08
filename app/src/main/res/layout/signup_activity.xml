@@ -108,7 +108,6 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="@string/sign_up"
-        android:background="@drawable/coner"
         android:backgroundTint="#003a8c"
         android:layout_marginTop="5dp"
         android:textColor="@android:color/white"

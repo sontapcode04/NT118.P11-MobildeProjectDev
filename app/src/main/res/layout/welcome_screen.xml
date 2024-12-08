@@ -67,26 +67,27 @@
     <Button
         android:id="@+id/SignIn_button"
         android:layout_width="327dp"
-        android:layout_height="56dp"
+        android:layout_height="62dp"
         android:layout_below="@+id/logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:background="@drawable/button"
-        android:text="Sign in"
+        android:backgroundTint="@color/blue"
+        android:text="@string/sign_in"
         android:textStyle="bold" />
 
-
     <Button
-        android:layout_below="@+id/SignIn_button"
+        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge"
         android:id="@+id/SignUp_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
         android:layout_width="327dp"
         android:layout_height="56dp"
-        android:background="@drawable/buttonsignup"
-        android:padding="15dp" />
-
-
+        android:layout_below="@+id/SignIn_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/button_border"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/blue"
+        android:text="@string/sign_up"
+        android:textStyle="bold" />
 
     <ImageView
         android:layout_width="match_parent"
