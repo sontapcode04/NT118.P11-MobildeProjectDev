@@ -43,4 +43,8 @@
         <string name="update_password">Update password</string>
         <string name="set_your_password">Set your password</string>
         <string name="setting">Setting</string>
+    <string name="do_you_want_to_log_out">Do you want to log out?</string>
+        <string name="cancel">Cancel</string>
+        <string name="resend_mail">Resend mail</string>
+        <string name="sign_in">SIGN IN</string>
 </resources>

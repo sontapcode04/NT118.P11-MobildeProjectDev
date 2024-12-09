@@ -10,49 +10,7 @@
     <ImageView
         android:id="@+id/imageAo3"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:src="@drawable/statusbar" />
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/imageAo3">
-
-        <LinearLayout
-            android:id="@+id/language_selector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#F8FAFC"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="42dp"
-            android:padding="10dp">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/us_flag" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="EN"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp" />
-
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/tick_button"
-                android:layout_marginLeft="10dp"
-                android:clickable="true"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
+        android:layout_height="44dp" />
 
     <ImageView
         android:id="@+id/logo"
@@ -67,26 +25,27 @@
     <Button
         android:id="@+id/SignIn_button"
         android:layout_width="327dp"
-        android:layout_height="56dp"
+        android:layout_height="62dp"
         android:layout_below="@+id/logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:background="@drawable/button"
-        android:text="Sign in"
+        android:backgroundTint="@color/blue"
+        android:text="@string/sign_in"
         android:textStyle="bold" />
 
-
     <Button
-        android:layout_below="@+id/SignIn_button"
+        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge"
         android:id="@+id/SignUp_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
         android:layout_width="327dp"
         android:layout_height="56dp"
-        android:background="@drawable/buttonsignup"
-        android:padding="15dp" />
-
-
+        android:layout_below="@+id/SignIn_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/button_border"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/blue"
+        android:text="@string/sign_up"
+        android:textStyle="bold" />
 
     <ImageView
         android:layout_width="match_parent"
