@@ -43,8 +43,10 @@
         <string name="update_password">Update password</string>
         <string name="set_your_password">Set your password</string>
         <string name="setting">Setting</string>
-    <string name="do_you_want_to_log_out">Do you want to log out?</string>
+        <string name="do_you_want_to_log_out">Do you want to log out?</string>
         <string name="cancel">Cancel</string>
         <string name="resend_mail">Resend mail</string>
         <string name="sign_in">SIGN IN</string>
+        <string name="default_web_client_id">203414613649-jg8ritueegk47se9dio12fe8btafs97e.apps.googleusercontent.com</string>
+
 </resources>
