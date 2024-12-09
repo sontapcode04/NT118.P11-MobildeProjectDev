@@ -1,13 +1,11 @@
 package com.example.mobileproject;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class set_your_password extends AppCompatActivity {
@@ -15,7 +13,7 @@ public class set_your_password extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.set_your_password_2);
+        setContentView(R.layout.set_your_password);
 
         ImageView backButton = findViewById(R.id.back); // Ánh xạ ImageView
         Button btnUpdate = findViewById(R.id.btnupdate);

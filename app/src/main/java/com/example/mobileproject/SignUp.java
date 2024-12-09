@@ -3,7 +3,6 @@ package com.example.mobileproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,7 +12,7 @@ public class SignUp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signup_activity2);
+        setContentView(R.layout.signup_activity);
 
         TextView tvSignIn = findViewById(R.id.signin);
         tvSignIn.setOnClickListener(new View.OnClickListener() {

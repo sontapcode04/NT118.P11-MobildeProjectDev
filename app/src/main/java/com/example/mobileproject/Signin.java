@@ -12,7 +12,7 @@ public class Signin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signin_activity2);
+        setContentView(R.layout.signin_activity);
 
         TextView tvSignUp = findViewById(R.id.sign_up);
         tvSignUp.setOnClickListener(new View.OnClickListener() {
