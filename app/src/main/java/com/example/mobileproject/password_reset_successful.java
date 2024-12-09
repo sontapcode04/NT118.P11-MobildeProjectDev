@@ -16,7 +16,6 @@ public class password_reset_successful extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.password_reset_successful);
 
         Button back_to_login_button = findViewById(R.id.back_to_login_button);
