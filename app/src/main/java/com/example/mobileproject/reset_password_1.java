@@ -12,7 +12,7 @@ public class reset_password_1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reset_password_1);
+        setContentView(R.layout.reset_password_1_1);
 
         Button btnNext = findViewById(R.id.btnNext);
         btnNext.setOnClickListener(new View.OnClickListener() {
