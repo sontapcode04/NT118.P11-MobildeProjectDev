@@ -243,7 +243,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/img_changelanguage">
-
             </ImageView>
 
             <TextView
@@ -251,6 +250,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
+                android:paddingStart="10dp"
                 android:text="@string/language"
                 android:textStyle="bold">
 
@@ -299,6 +299,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/log_out"
                 android:textColor="#E72323"
+                android:paddingStart="10dp"
                 android:textStyle="bold">
 
             </TextView>
@@ -330,26 +331,18 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:orientation="vertical"
+                android:clickable="true">
 
                 <ImageView
-                    android:id="@+id/imageView1"
+                    android:id="@+id/imageViewHome"
                     android:layout_width="match_parent"
-                    android:layout_height="33dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:src="@drawable/img_home" />
+                    android:src="@drawable/img_home"
+                    android:clickable="true"/>
 
                 <TextView
                     android:id="@+id/textView1"
@@ -358,21 +351,21 @@
                     android:text="@string/home"
                     android:textAlignment="center"
                     android:textStyle="bold" />
-
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.9"
+                android:layout_height="113dp"
+                android:layout_weight="0.25"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/imageViewMap"
                     android:layout_width="match_parent"
-                    android:layout_height="113dp"
-                    android:layout_marginTop="-20dp"
-                    android:src="@drawable/img_map" />
+                    android:layout_height="86dp"
+                    android:layout_marginTop="-10dp"
+                    android:src="@drawable/img_map"
+                    android:clickable="true"/>
 
 
             </LinearLayout>
@@ -380,15 +373,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.25"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/imageViewSetting"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:src="@drawable/img_setting" />
+                    android:src="@drawable/img_setting"/>
 
                 <TextView
                     android:id="@+id/textView"
@@ -397,13 +390,6 @@
                     android:text="@string/setting"
                     android:textAlignment="center"
                     android:textStyle="bold" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
             </LinearLayout>
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

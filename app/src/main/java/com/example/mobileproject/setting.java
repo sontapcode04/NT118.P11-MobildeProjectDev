@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +44,14 @@ public class setting extends AppCompatActivity {
             }
         });
 
-
+        ImageView home = findViewById(R.id.imageViewHome);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(setting.this, dashboard.class);
+                startActivity(intent);
+            }
+        });
 
 
         // Xử lý sự kiện khi nhấn vào profileLayout
