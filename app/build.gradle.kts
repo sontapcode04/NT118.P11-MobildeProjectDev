@@ -50,4 +50,5 @@ dependencies {
     implementation(libs.firebase.bom)
     implementation(libs.google.firebase.auth)
     implementation(libs.play.services.auth)
+    implementation(libs.mpandroidchart)
 }
