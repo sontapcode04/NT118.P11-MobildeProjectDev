@@ -21,11 +21,11 @@
             <!-- Header with Profile Info -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:orientation="horizontal"
                 android:padding="16dp"
                 android:gravity="center_vertical"
-                android:background="@drawable/coner1">
+                android:background="@drawable/background_for_user">
 
                 <ImageView
                     android:layout_width="64dp"
@@ -62,8 +62,8 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/noti_icon"
                     android:contentDescription="@string/notifications_icon" />
             </LinearLayout>
@@ -136,7 +136,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/report_icon"
+                        android:src="@drawable/report2"
                         android:layout_marginEnd="16dp"
                         android:contentDescription="Report Icon" />
 
@@ -173,7 +173,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/report_icon"
+                        android:src="@drawable/report3"
                         android:layout_marginEnd="16dp"
                         android:contentDescription="@string/report_icon" />
 
@@ -218,10 +218,13 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/ic_launcher_background">
+                android:layout_marginTop="16dp">
 
-                <!-- Biểu đồ sẽ được tạo bằng mã Java/Kotlin và hiển thị tại đây -->
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/Chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    />
             </FrameLayout>
 
             <LinearLayout
