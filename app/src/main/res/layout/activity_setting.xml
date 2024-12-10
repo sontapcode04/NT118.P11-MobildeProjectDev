@@ -318,13 +318,9 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="138dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="2dp">
-<!--        app:constrainEnd_toEndOf="parent"-->
-<!--        app:layout_constrainStart_toStartOf="parent"-->
-<!--        app:layout_constrainBottom_toBottomOf="parent">-->
-
+        android:background="@android:color/white">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -334,21 +330,31 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.25"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/imageView1"
-                    android:layout_width="172dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
                     android:layout_marginTop="30dp"
-                    app:srcCompat="@drawable/img_home" />
+                    android:src="@drawable/img_home" />
 
                 <TextView
                     android:id="@+id/textView1"
-                    android:layout_width="172dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
                     android:text="@string/home"
                     android:textAlignment="center"
                     android:textStyle="bold" />
@@ -357,16 +363,16 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="113dp"
-                android:layout_weight="0.25"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="match_parent"
-                    android:layout_height="86dp"
-                    android:layout_marginTop="-10dp"
-                    app:srcCompat="@drawable/img_map" />
+                    android:layout_height="113dp"
+                    android:layout_marginTop="-20dp"
+                    android:src="@drawable/img_map" />
 
 
             </LinearLayout>
@@ -374,23 +380,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.25"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/imageView3"
-                    android:layout_width="98dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
                     android:layout_marginTop="30dp"
-                    app:srcCompat="@drawable/img_setting" />
+                    android:src="@drawable/img_setting" />
 
                 <TextView
                     android:id="@+id/textView"
-                    android:layout_width="98dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/setting"
                     android:textAlignment="center"
                     android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
             </LinearLayout>
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
