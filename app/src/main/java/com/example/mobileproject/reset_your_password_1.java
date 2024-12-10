@@ -13,7 +13,7 @@ public class reset_your_password_1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reset_your_password_1);
+        setContentView(R.layout.reset_your_password_1_1);
 
         Button changePasswordButton = findViewById(R.id.btnNext);
 

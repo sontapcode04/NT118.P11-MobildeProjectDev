@@ -75,37 +75,68 @@
         android:layout_marginTop="15dp"
         android:drawablePadding="15dp"/>
 
+<!--    <EditText-->
+<!--        android:id="@+id/password"-->
+<!--        android:layout_below="@+id/email"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_width="375dp"-->
+<!--        android:layout_height="56dp"-->
+<!--        android:autofillHints=""-->
+<!--        android:hint="@string/editTextPassword"-->
+<!--        android:inputType="textPassword"-->
+<!--        android:drawableStart="@drawable/lock"-->
+<!--        android:paddingStart="12dp"-->
+<!--        android:drawablePadding="15dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:paddingEnd="12dp"-->
+<!--        android:background="@drawable/coner"/>-->
     <EditText
         android:id="@+id/password"
         android:layout_below="@+id/email"
         android:layout_centerHorizontal="true"
         android:layout_width="375dp"
         android:layout_height="56dp"
-        android:autofillHints=""
-        android:hint="@string/editTextPassword"
-        android:inputType="textPassword"
-        android:drawableStart="@drawable/lock"
-        android:paddingStart="12dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/coner"
+        android:drawableLeft="@drawable/lock"
+        android:drawableRight="@drawable/eye"
         android:drawablePadding="15dp"
-        android:layout_marginTop="15dp"
-        android:paddingEnd="12dp"
-        android:background="@drawable/coner"/>
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
+
+<!--    <EditText-->
+<!--        android:id="@+id/confirmpassword"-->
+<!--        android:layout_below="@+id/password"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_width="375dp"-->
+<!--        android:layout_height="56dp"-->
+<!--        android:autofillHints=""-->
+<!--        android:hint="@string/confirm_password"-->
+<!--        android:inputType="textPassword"-->
+<!--        android:drawableStart="@drawable/lock"-->
+<!--        android:paddingStart="12dp"-->
+<!--        android:drawablePadding="15dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:paddingEnd="12dp"-->
+<!--        android:background="@drawable/coner"/>-->
 
     <EditText
         android:id="@+id/confirmpassword"
-        android:layout_below="@+id/password"
+        android:layout_below="@id/password"
         android:layout_centerHorizontal="true"
         android:layout_width="375dp"
         android:layout_height="56dp"
-        android:autofillHints=""
-        android:hint="@string/confirm_password"
-        android:inputType="textPassword"
-        android:drawableStart="@drawable/lock"
-        android:paddingStart="12dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/coner"
+        android:drawableLeft="@drawable/lock"
+        android:drawableRight="@drawable/eye"
         android:drawablePadding="15dp"
-        android:layout_marginTop="15dp"
-        android:paddingEnd="12dp"
-        android:background="@drawable/coner"/>
+        android:hint="Confirm password"
+        android:inputType="textPassword"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
 
     <Button
         android:id="@+id/sign_up_button"
