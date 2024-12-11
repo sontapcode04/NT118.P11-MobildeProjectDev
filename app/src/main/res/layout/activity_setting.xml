@@ -10,10 +10,10 @@
         android:id="@+id/linear_layout_card"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="0dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/coner1"
+        android:background="@drawable/background_for_user"
         android:orientation="horizontal"
         android:padding="16dp">
 
