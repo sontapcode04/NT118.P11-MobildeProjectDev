@@ -53,6 +53,15 @@ public class setting extends AppCompatActivity {
             }
         });
 
+        ImageView mapbox = findViewById(R.id.imageViewMap);
+        mapbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(setting.this, mapbox.class);
+                startActivity(intent);
+            }
+        });
+
 
         // Xử lý sự kiện khi nhấn vào profileLayout
         profileLayout.setOnClickListener(new View.OnClickListener() {

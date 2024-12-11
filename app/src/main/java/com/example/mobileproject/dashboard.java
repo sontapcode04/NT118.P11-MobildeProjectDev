@@ -32,6 +32,15 @@ public class dashboard extends AppCompatActivity {
             }
         });
 
+        ImageView mapbox = findViewById(R.id.imageViewMap);
+        mapbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(dashboard.this, mapbox.class);
+                startActivity(intent);
+            }
+        });
+
         // vẽ chart
         pieChart = findViewById(R.id.Chart);
         setupPieChart();
