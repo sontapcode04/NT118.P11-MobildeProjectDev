@@ -1,10 +1,16 @@
 package com.example.mobileproject.api;
 
 
+import com.example.mobileproject.model.ForgotPasswordRequest;
+import com.example.mobileproject.model.ForgotPasswordResponse;
 import com.example.mobileproject.model.LoginRequest;
 import com.example.mobileproject.model.LoginResponse;
 import com.example.mobileproject.model.RegisterRequest;
 import com.example.mobileproject.model.RegisterResponse;
+import com.example.mobileproject.model.UpdatePasswordRequest;
+import com.example.mobileproject.model.UpdatePasswordResponse;
+import com.example.mobileproject.model.VerifyOtpRequest;
+import com.example.mobileproject.model.VerifyOtpResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -19,4 +25,16 @@ public interface ApiService {
     @POST("sign_in.php")
     @Headers("Content-Type: application/json")
     Call<LoginResponse> loginUser(@Body LoginRequest request);
+
+    @POST("test_forget_password.php")
+    @Headers("Content-Type: application/json")
+    Call<ForgotPasswordResponse> sendOTP(@Body ForgotPasswordRequest request);
+
+    @POST("verify_otp.php")
+    @Headers("Content-Type: application/json")
+    Call<VerifyOtpResponse> verifyOTP(@Body VerifyOtpRequest request);
+
+    @POST("update_password.php")
+    @Headers("Content-Type: application/json")
+    Call<UpdatePasswordResponse> updatePassword(@Body UpdatePasswordRequest request);
 }
