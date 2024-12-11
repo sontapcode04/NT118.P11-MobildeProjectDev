@@ -297,13 +297,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:src="@drawable/img_home" />
+                    android:src="@drawable/home_blue" />
 
                 <TextView
                     android:id="@+id/textView1"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:text="@string/home"
+                    android:textColor="@color/blue"
                     android:textAlignment="center"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -336,7 +337,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:src="@drawable/img_setting"
+                    android:src="@drawable/setting_black"
                     android:clickable="true"/>
 
                 <TextView
