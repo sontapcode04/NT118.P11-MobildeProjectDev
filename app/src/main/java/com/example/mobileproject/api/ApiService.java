@@ -11,6 +11,8 @@ import com.example.mobileproject.model.UpdatePasswordRequest;
 import com.example.mobileproject.model.UpdatePasswordResponse;
 import com.example.mobileproject.model.VerifyOtpRequest;
 import com.example.mobileproject.model.VerifyOtpResponse;
+import com.example.mobileproject.model.detectedPotholeRequest;
+import com.example.mobileproject.model.detectedPotholeResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -37,4 +39,8 @@ public interface ApiService {
     @POST("update_password.php")
     @Headers("Content-Type: application/json")
     Call<UpdatePasswordResponse> updatePassword(@Body UpdatePasswordRequest request);
+
+    @POST("detected_pothole.php")
+    @Headers("Content-Type: application/json")
+    Call<detectedPotholeResponse> detectedPothole(@Body detectedPotholeRequest request);
 }

@@ -197,7 +197,6 @@ public class Signin extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 progressDialog.dismiss();
-
                 if (response.isSuccessful() && response.body() != null) {
                     LoginResponse loginResponse = response.body();
                     if ("success".equals(loginResponse.getStatus())) {

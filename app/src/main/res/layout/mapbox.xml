@@ -77,4 +77,13 @@
         android:layout_above="@id/setRoute"
         android:layout_margin="16sp"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pothole50"
+        android:id="@+id/detectedPothole"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/focusLocation"
+        android:layout_margin="16sp"/>
+
 </RelativeLayout>
