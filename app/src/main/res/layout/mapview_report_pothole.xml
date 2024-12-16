@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/design_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/home_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/home_indicator">
+
+    </ImageView>
+
+    <RelativeLayout
+        android:id="@+id/image_report_pothole"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/home_indicator">
+
+        <TextView
+            android:id="@+id/tv_report_pothole"
+            android:layout_width="325dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Report Pothole"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/pothole_warning_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/tv_report_pothole"
+            android:background="@drawable/warning_pothole" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/dia_chi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_report_pothole"
+        android:layout_marginBottom="12dp"
+        android:background="#f8fafc"
+        android:drawableStart="@drawable/map_pin_icon"
+        android:hint=" 1 Lưu Hữu Phước"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp" />
+
+    <Spinner
+        android:id="@+id/spinner_severity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/dia_chi"
+        android:background="#f8fafc" />
+
+
+    <LinearLayout
+        android:id="@+id/add_photo_btn"
+        android:layout_width="match_parent"
+        android:layout_height="148dp"
+        android:layout_below="@+id/spinner_severity"
+        android:background="@drawable/dashed_border"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- Biểu tượng dấu cộng -->
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_add_photo" />
+
+        <!-- Văn bản "Add photo" -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Add photo"
+            android:textColor="#4A90E2"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/ignorebutton"
+        android:layout_marginTop="15dp"
+        android:layout_width="165dp"
+        android:layout_height="56dp"
+        android:layout_below="@+id/add_photo_btn"
+        android:background="#003A8C"
+        android:text="Ignore">
+
+    </Button>
+
+    <Button
+        android:id="@+id/reportbutton"
+        android:layout_marginTop="15dp"
+        android:layout_width="165dp"
+        android:layout_height="56dp"
+        android:layout_below="@+id/add_photo_btn"
+        android:layout_alignParentRight="true"
+        android:background="#003A8C"
+        android:text="Report">
+
+    </Button>
+
+
+</RelativeLayout>
