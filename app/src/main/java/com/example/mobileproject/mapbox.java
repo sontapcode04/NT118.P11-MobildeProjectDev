@@ -227,7 +227,7 @@ public class mapbox extends AppCompatActivity {
     private PlaceAutocompleteUiAdapter placeAutocompleteUiAdapter;
     private TextInputEditText searchET;
     private boolean ignoreNextQueryUpdate = false;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
