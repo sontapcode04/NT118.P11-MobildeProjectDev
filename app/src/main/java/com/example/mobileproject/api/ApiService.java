@@ -5,6 +5,7 @@ import com.example.mobileproject.model.ForgotPasswordRequest;
 import com.example.mobileproject.model.ForgotPasswordResponse;
 import com.example.mobileproject.model.LoginRequest;
 import com.example.mobileproject.model.LoginResponse;
+import com.example.mobileproject.model.PotholeResponse;
 import com.example.mobileproject.model.RegisterRequest;
 import com.example.mobileproject.model.RegisterResponse;
 import com.example.mobileproject.model.UpdatePasswordRequest;
@@ -14,8 +15,11 @@ import com.example.mobileproject.model.VerifyOtpResponse;
 import com.example.mobileproject.model.detectedPotholeRequest;
 import com.example.mobileproject.model.detectedPotholeResponse;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
@@ -43,4 +47,8 @@ public interface ApiService {
     @POST("detected_pothole.php")
     @Headers("Content-Type: application/json")
     Call<detectedPotholeResponse> detectedPothole(@Body detectedPotholeRequest request);
+
+    @GET("get_pothole.php")
+    @Headers("Content-Type: application/json")
+    Call<List<PotholeResponse>> getPotholes();
 }

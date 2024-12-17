@@ -7,8 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    //private static final String BASE_URL = "http://nhom10.tanlamdevops.id.vn/"; // Thay đổi URL server của bạn
-    private static final String BASE_URL = "http://192.168.21.98:8080/android_test/";
+    private static final String BASE_URL = "http://nhom10.tanlamdevops.id.vn/"; // Thay đổi URL server của bạn
+   // private static final String BASE_URL = "http://192.168.21.98:8080/android_test/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
