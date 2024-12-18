@@ -29,6 +29,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.mobileproject.api.ApiService;
 import com.example.mobileproject.api.RetrofitClient;
+import com.example.mobileproject.model.PotholeDetector;
 import com.example.mobileproject.model.detectedPotholeRequest;
 import com.example.mobileproject.model.detectedPotholeResponse;
 import com.google.android.material.button.MaterialButton;
@@ -131,6 +132,7 @@ public class mapbox extends AppCompatActivity {
             if (focusLocation) {
                 updateCamera(Point.fromLngLat(location.getLongitude(), location.getLatitude()), (double) location.getBearing());
             }
+            potholeDetector.updateLocation(location);
         }
     };
     private final RoutesObserver routesObserver = new RoutesObserver() {
@@ -143,6 +145,8 @@ public class mapbox extends AppCompatActivity {
                     if (style != null) {
                         routeLineView.renderRouteDrawData(style, routeLineErrorRouteSetValueExpected);
                     }
+
+
                 }
             });
         }
@@ -227,6 +231,12 @@ public class mapbox extends AppCompatActivity {
     private PlaceAutocompleteUiAdapter placeAutocompleteUiAdapter;
     private TextInputEditText searchET;
     private boolean ignoreNextQueryUpdate = false;
+
+    private PotholeDetector potholeDetector;
+    private PointAnnotationManager pointAnnotationManager;
+    private Bitmap potholeBitmap;
+    private Bitmap locationBitmap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
