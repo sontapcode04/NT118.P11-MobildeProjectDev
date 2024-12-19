@@ -51,4 +51,5 @@ dependencies {
     implementation(libs.google.firebase.auth)
     implementation(libs.play.services.auth)
     implementation(libs.mpandroidchart)
+    //implementation ("com.mapbox.maps:plugin-annotation:10.15.0")
 }

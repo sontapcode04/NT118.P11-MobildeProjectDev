@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.mobileproject.api.ApiService;
 import com.example.mobileproject.api.RetrofitClient;
+import com.example.mobileproject.model.PotholeResponse;
 import com.example.mobileproject.model.detectedPotholeRequest;
 import com.example.mobileproject.model.detectedPotholeResponse;
 import com.google.android.material.button.MaterialButton;
@@ -48,6 +50,7 @@ import com.mapbox.geojson.Point;
 import com.mapbox.maps.CameraOptions;
 import com.mapbox.maps.EdgeInsets;
 import com.mapbox.maps.MapView;
+import com.mapbox.maps.MapboxMap;
 import com.mapbox.maps.Style;
 import com.mapbox.maps.extension.style.layers.properties.generated.TextAnchor;
 import com.mapbox.maps.plugin.animation.MapAnimationOptions;
@@ -237,6 +240,9 @@ public class mapbox extends AppCompatActivity {
         focusLocationBtn = findViewById(R.id.focusLocation);
         setRoute = findViewById(R.id.setRoute);
         detectedPothole = findViewById(R.id.detectedPothole);
+        /////////////////////
+        //fetchPotholesAndLoadMarkers();
+        /////////////////////
 
         MapboxRouteLineOptions options = new MapboxRouteLineOptions.Builder(this).withRouteLineResources(new RouteLineResources.Builder().build())
                 .withRouteLineBelowLayerId(LocationComponentConstants.LOCATION_INDICATOR_LAYER).build();
@@ -480,6 +486,43 @@ public class mapbox extends AppCompatActivity {
         });
     }
 
+    //////////////////////////////////////
+//    private void fetchPotholesAndLoadMarkers() {
+//        ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
+//
+//        apiService.getPotholes().enqueue(new Callback<List<PotholeResponse>>() {
+//            @Override
+//            public void onResponse(Call<List<PotholeResponse>> call, Response<List<PotholeResponse>> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    loadMarkersOnMap(response.body());
+//                } else {
+//                    Log.e("API_ERROR", "Response failed");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<PotholeResponse>> call, Throwable t) {
+//                Log.e("API_ERROR", "Error: " + t.getMessage());
+//            }
+//        });
+//    }
+//
+//    private void loadMarkersOnMap(List<PotholeResponse> potholes) {
+//        MapboxMap mapboxMap = mapView.getMapboxMap();
+//        mapboxMap.loadStyleUri(Style.MAPBOX_STREETS, style -> {
+//            AnnotationPlugin annotationPlugin = AnnotationPluginImplKt.getAnnotations(mapView);
+//            PointAnnotationManager pointAnnotationManager = annotationPlugin.createPointAnnotationManager();
+//
+//            for (PotholeResponse pothole : potholes) {
+//                Point point = Point.fromLngLat(pothole.getLongitude(), pothole.getLatitude());
+//                PointAnnotationOptions options = new PointAnnotationOptions()
+//                        .withPoint(point)
+//                        .withIconImage(BitmapFactory.decodeResource(getResources(), R.drawable.img_pothole));
+//                pointAnnotationManager.create(options);
+//            }
+//        });
+//    }
+    /////////////////////////////////
     @SuppressLint("MissingPermission")
     private void fetchRoute(Point point) {
         LocationEngine locationEngine = LocationEngineProvider.getBestLocationEngine(mapbox.this);
