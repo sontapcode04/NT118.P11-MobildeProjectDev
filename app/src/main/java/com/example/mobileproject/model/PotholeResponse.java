@@ -9,10 +9,11 @@ public class PotholeResponse {
     @SerializedName("longitude")
     private double longitude;
 
-    public PotholeResponse (double latitude, double longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
+    @SerializedName("severity")
+    private double severity;
+
+    @SerializedName("user_id")
+    private int userId;
 
     public double getLatitude() {
         return latitude;
@@ -20,5 +21,12 @@ public class PotholeResponse {
 
     public double getLongitude() {
         return longitude;
+    }
+    public double getSeverity() {
+        return severity;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 }

@@ -1,10 +1,12 @@
 package com.example.mobileproject.api;
 
 
+import com.example.mobileproject.model.ApiResponse;
 import com.example.mobileproject.model.ForgotPasswordRequest;
 import com.example.mobileproject.model.ForgotPasswordResponse;
 import com.example.mobileproject.model.LoginRequest;
 import com.example.mobileproject.model.LoginResponse;
+import com.example.mobileproject.model.PotholeData;
 import com.example.mobileproject.model.PotholeResponse;
 import com.example.mobileproject.model.RegisterRequest;
 import com.example.mobileproject.model.RegisterResponse;
@@ -47,6 +49,9 @@ public interface ApiService {
     @POST("detected_pothole.php")
     @Headers("Content-Type: application/json")
     Call<detectedPotholeResponse> detectedPothole(@Body detectedPotholeRequest request);
+
+    @POST("add_pothole.php")
+    Call<ApiResponse> addPothole(@Body PotholeData data);
 
     @GET("get_pothole.php")
     @Headers("Content-Type: application/json")
