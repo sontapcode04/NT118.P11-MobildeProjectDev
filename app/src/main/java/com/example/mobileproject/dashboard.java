@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.graphics.Color;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -22,7 +23,7 @@ public class dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
-
+        AnhXa();
         ImageView setting = findViewById(R.id.imageViewSetting);
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,5 +85,11 @@ public class dashboard extends AppCompatActivity {
         PieData data = new PieData(dataSet);
         pieChart.setData(data);
         pieChart.invalidate(); // Refresh để hiển thị dữ liệu
+    }
+
+    private void AnhXa() {
+        TextView HelloUser = findViewById(R.id.helloUser);
+        TextView NameUser = findViewById(R.id.NameUser);
+        TextView ScoreUser = findViewById(R.id.ScoreUser);
     }
 }
