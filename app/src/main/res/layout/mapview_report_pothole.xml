@@ -47,7 +47,7 @@
         android:layout_marginBottom="12dp"
         android:background="#f8fafc"
         android:drawableStart="@drawable/map_pin_icon"
-        android:hint=" 1 Lưu Hữu Phước"
+        android:hint=" Vị trí của bạn"
         android:paddingStart="12dp"
         android:paddingEnd="12dp" />
 
@@ -58,41 +58,13 @@
         android:layout_below="@+id/dia_chi"
         android:background="#f8fafc" />
 
-
-    <LinearLayout
-        android:id="@+id/add_photo_btn"
-        android:layout_width="match_parent"
-        android:layout_height="148dp"
-        android:layout_below="@+id/spinner_severity"
-        android:background="@drawable/dashed_border"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <!-- Biểu tượng dấu cộng -->
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/ic_add_photo" />
-
-        <!-- Văn bản "Add photo" -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Add photo"
-            android:textColor="#4A90E2"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
     <Button
         android:id="@+id/ignorebutton"
         android:layout_marginTop="15dp"
         android:layout_width="165dp"
         android:layout_height="56dp"
-        android:layout_below="@+id/add_photo_btn"
-        android:background="#003A8C"
+        android:layout_below="@+id/spinner_severity"
+        android:background="@drawable/coner"
         android:text="Ignore">
 
     </Button>
@@ -102,7 +74,7 @@
         android:layout_marginTop="15dp"
         android:layout_width="165dp"
         android:layout_height="56dp"
-        android:layout_below="@+id/add_photo_btn"
+        android:layout_below="@+id/spinner_severity"
         android:layout_alignParentRight="true"
         android:background="#003A8C"
         android:text="Report">
