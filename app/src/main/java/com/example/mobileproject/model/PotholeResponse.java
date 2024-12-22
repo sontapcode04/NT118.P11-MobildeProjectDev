@@ -22,6 +22,7 @@ public class PotholeResponse {
     public double getLongitude() {
         return longitude;
     }
+
     public double getSeverity() {
         return severity;
     }

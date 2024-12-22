@@ -52,8 +52,8 @@ public class PotholeRepository {
                         potholes.add(new PotholeData(
                                 item.getLatitude(),
                                 item.getLongitude(),
-                                0.0,  // severity không cần thiết
-                                0     // user_id không cần thiết
+                                item.getSeverity(),  // severity không cần thiết
+                                item.getUserId()     // user_id không cần thiết
                         ));
                     }
                     callback.onSuccess(potholes);

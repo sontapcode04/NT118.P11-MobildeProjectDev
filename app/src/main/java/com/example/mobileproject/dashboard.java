@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class dashboard extends AppCompatActivity {
     PieChart pieChart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +43,15 @@ public class dashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(dashboard.this, mapbox.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageView noti = findViewById(R.id.notificationIcon);
+        noti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(dashboard.this, notification.class);
                 startActivity(intent);
             }
         });
@@ -74,11 +84,12 @@ public class dashboard extends AppCompatActivity {
             public void onSuccess(List<PotholeData> potholes) {
                 Log.d("Dashboard", "Successfully loaded " + potholes.size() + " potholes");
 
+                //của user = ?
+
                 // Xử lý số lượng pothole theo mức độ
                 int lowCount = 0;
                 int mediumCount = 0;
                 int highCount = 0;
-
                 for (PotholeData pothole : potholes) {
                     int severity = (int) pothole.getSeverity(); // Chuyển về số nguyên
                     switch (severity) {
@@ -159,5 +170,6 @@ public class dashboard extends AppCompatActivity {
         TextView HelloUser = findViewById(R.id.helloUser);
         TextView NameUser = findViewById(R.id.NameUser);
         TextView ScoreUser = findViewById(R.id.ScoreUser);
+        ImageView notification = findViewById(R.id.notificationIcon);
     }
 }

@@ -58,6 +58,8 @@
             android:exported="false"/>
         <activity android:name=".mapbox"
             android:exported="false"/>
+        <activity android:name=".notification"
+            android:exported="false"/>
     </application>
 
 </manifest>

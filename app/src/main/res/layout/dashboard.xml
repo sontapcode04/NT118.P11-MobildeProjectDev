@@ -68,6 +68,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/noti_icon"
+                    android:id="@+id/notificationIcon"
+                    android:clickable="true"
                     android:contentDescription="@string/notifications_icon" />
             </LinearLayout>
 
