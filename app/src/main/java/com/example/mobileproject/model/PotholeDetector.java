@@ -8,9 +8,9 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.util.Log;
 
-import com.example.mobileproject.api.ApiService;
 import com.mapbox.geojson.Point;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +20,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import com.example.mobileproject.model.PotholeData;
+import com.example.mobileproject.mapbox;
 import com.example.mobileproject.api.ApiService;
-import com.example.mobileproject.model.ApiResponse;
+import com.example.mobileproject.model.PotholeData;
+import com.example.mobileproject.model.PotholeResponse;
 
 public class PotholeDetector implements SensorEventListener {
     private static final float POTHOLE_THRESHOLD = 15.0f; // Ngưỡng phát hiện ổ gà
@@ -61,7 +62,6 @@ public class PotholeDetector implements SensorEventListener {
             float y = event.values[1];
             float z = event.values[2];
 
-            // Tính toán độ lớn của gia tốc
             float acceleration = (float) Math.sqrt(x * x + y * y + z * z);
 
             if (acceleration > POTHOLE_THRESHOLD && currentLocation != null) {
@@ -85,22 +85,32 @@ public class PotholeDetector implements SensorEventListener {
         return potholeLocations;
     }
 
-    private void sendPotholeData(Point location, double severity) {
-        Log.d("PotholeDetector", "Pothole saved successfully with id: ");
-
+    private void sendPotholeData(Point location, double acceleration) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://nhom10.tanlamdevops.id.vn")
+                .baseUrl("http://nhom10.tanlamdevops.id.vn/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        String severityLevel;
+        if (acceleration <= 10.0f) {
+            severityLevel = "low";
+        } else if (acceleration <= 20.0f) {
+            severityLevel = "medium";
+        } else {
+            severityLevel = "high";
+        }
+
+        Log.d("PotholeDetector", "Acceleration: " + acceleration + ", Severity: " + severityLevel);
 
         PotholeData potholeData = new PotholeData(
+                null,
                 location.latitude(),
                 location.longitude(),
-                severity,
-                1 // Thay thế bằng user_id thực tế
+                severityLevel,  // Sử dụng severity level đã chuyển đổi
+                1  // Đảm bảo user_id hợp lệ
         );
 
+        Log.d("PotholeDetector", "PotholeData: " + potholeData.toString());
 
         retrofit.create(ApiService.class)
                 .addPothole(potholeData)
@@ -110,9 +120,17 @@ public class PotholeDetector implements SensorEventListener {
                         if (response.isSuccessful() && response.body() != null) {
                             ApiResponse apiResponse = response.body();
                             if ("success".equals(apiResponse.getStatus())) {
-                                Log.d("PotholeDetector", "Pothole saved successfully with id: " + apiResponse.getId());
+                                Log.d("PotholeDetector", "Pothole saved successfully with id: " +
+                                        apiResponse.getId() + ", severity: " + severityLevel);
                             } else {
-                                Log.e("PotholeDetector", "Failed to save pothole: " + apiResponse.getMessage());
+                                Log.e("PotholeDetector", "Failed to save pothole: " +
+                                        apiResponse.getMessage());
+                            }
+                        } else {
+                            try {
+                                Log.e("PotholeDetector", "Error response: " + response.errorBody().string());
+                            } catch (IOException e) {
+                                Log.e("PotholeDetector", "Error reading error body", e);
                             }
                         }
                     }

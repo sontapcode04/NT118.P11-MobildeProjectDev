@@ -3,7 +3,6 @@ package com.example.mobileproject.model;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.mobileproject.api.ApiService;
 import com.example.mobileproject.mapbox;
 import com.example.mobileproject.api.ApiService;
 import com.example.mobileproject.model.PotholeData;
@@ -23,6 +22,11 @@ public class PotholeRepository {
 
     public interface PotholeCallback {
         void onSuccess(List<PotholeData> potholes);
+        void onError(String message);
+    }
+
+    public interface AddPotholeCallback {
+        void onSuccess();
         void onError(String message);
     }
 
@@ -49,11 +53,19 @@ public class PotholeRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     List<PotholeData> potholes = new ArrayList<>();
                     for (PotholeResponse item : response.body()) {
+                        Integer id = null;
+                        try {
+                            id = Integer.parseInt(item.getId());
+                        } catch (NumberFormatException e) {
+                            Log.e(TAG, "Error parsing ID: " + e.getMessage());
+                        }
+
                         potholes.add(new PotholeData(
+                                id,
                                 item.getLatitude(),
                                 item.getLongitude(),
-                                0.0,  // severity không cần thiết
-                                0     // user_id không cần thiết
+                                item.getSeverity(),
+                                0
                         ));
                     }
                     callback.onSuccess(potholes);
@@ -66,6 +78,24 @@ public class PotholeRepository {
             public void onFailure(Call<List<PotholeResponse>> call, Throwable t) {
                 Log.e(TAG, "Error getting potholes: " + t.getMessage());
                 Log.e(TAG, "Stack trace: ", t);
+                callback.onError("Network error: " + t.getMessage());
+            }
+        });
+    }
+
+    public void addPothole(PotholeData pothole, AddPotholeCallback callback) {
+        potholeApi.addPothole(pothole).enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess();
+                } else {
+                    callback.onError("Failed to add pothole");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
                 callback.onError("Network error: " + t.getMessage());
             }
         });

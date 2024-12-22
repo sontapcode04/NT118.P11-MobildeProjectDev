@@ -3,6 +3,8 @@ package com.example.mobileproject.model;
 import com.google.gson.annotations.SerializedName;
 
 public class ApiResponse {
+
+
     @SerializedName("status")
     private String status;
 

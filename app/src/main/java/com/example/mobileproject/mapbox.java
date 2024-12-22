@@ -1,6 +1,5 @@
 package com.example.mobileproject;
 
-
 import static com.mapbox.maps.plugin.animation.CameraAnimationsUtils.getCamera;
 import static com.mapbox.maps.plugin.gestures.GesturesUtils.addOnMapClickListener;
 import static com.mapbox.maps.plugin.gestures.GesturesUtils.getGestures;
@@ -9,7 +8,9 @@ import static com.mapbox.navigation.base.extensions.RouteOptionsExtensions.apply
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,9 +20,17 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
@@ -29,18 +38,20 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.mobileproject.api.ApiService;
 import com.example.mobileproject.api.RetrofitClient;
-<<<<<<< HEAD
+
+import com.example.mobileproject.model.PotholeProximityDetector;
 import com.example.mobileproject.model.PotholeResponse;
-=======
+
 import com.example.mobileproject.model.PotholeData;
 import com.example.mobileproject.model.PotholeDetector;
 import com.example.mobileproject.model.PotholeRepository;
->>>>>>> 16368d603163ef7d07d830cadd0bf0dbda90541e
+
 import com.example.mobileproject.model.detectedPotholeRequest;
 import com.example.mobileproject.model.detectedPotholeResponse;
 import com.google.android.material.button.MaterialButton;
@@ -74,6 +85,8 @@ import com.mapbox.maps.plugin.gestures.OnMoveListener;
 import com.mapbox.maps.plugin.locationcomponent.LocationComponentConstants;
 import com.mapbox.maps.plugin.locationcomponent.LocationComponentPlugin;
 import com.mapbox.maps.plugin.locationcomponent.generated.LocationComponentSettings;
+import com.mapbox.navigation.base.formatter.DistanceFormatter;
+import com.mapbox.navigation.base.formatter.UnitType;
 import com.mapbox.navigation.base.options.NavigationOptions;
 import com.mapbox.navigation.base.route.NavigationRoute;
 import com.mapbox.navigation.base.route.NavigationRouterCallback;
@@ -107,6 +120,16 @@ import com.mapbox.search.ui.adapter.autocomplete.PlaceAutocompleteUiAdapter;
 import com.mapbox.search.ui.view.CommonSearchViewConfiguration;
 import com.mapbox.search.ui.view.SearchResultsView;
 
+import com.mapbox.navigation.ui.maneuver.api.MapboxManeuverApi;
+import com.mapbox.navigation.ui.maneuver.model.Maneuver;
+
+import com.mapbox.navigation.ui.maneuver.view.MapboxManeuverView;
+import com.mapbox.navigation.ui.maneuver.api.MapboxManeuverApi;
+import com.mapbox.navigation.ui.maneuver.model.ManeuverError;
+import com.mapbox.navigation.base.trip.model.RouteProgress;
+import com.mapbox.navigation.core.trip.session.RouteProgressObserver;
+import com.mapbox.navigation.ui.maneuver.model.PrimaryManeuver;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -124,28 +147,41 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class mapbox extends AppCompatActivity {
+
     MapView mapView;
-    MaterialButton setRoute;
+    FloatingActionButton setRoute;
     FloatingActionButton focusLocationBtn;
-    FloatingActionButton detectedPothole;
     private final NavigationLocationProvider navigationLocationProvider = new NavigationLocationProvider();
     private MapboxRouteLineView routeLineView;
     private MapboxRouteLineApi routeLineApi;
-
     private final LocationObserver locationObserver = new LocationObserver() {
         @Override
         public void onNewRawLocation(@NonNull Location location) {
-
+            // Không cần xử lý raw location
         }
 
         @Override
         public void onNewLocationMatcherResult(@NonNull LocationMatcherResult locationMatcherResult) {
             Location location = locationMatcherResult.getEnhancedLocation();
             navigationLocationProvider.changePosition(location, locationMatcherResult.getKeyPoints(), null, null);
+
+            // Cập nhật location cho cả hai detector
+            new Thread(() -> {
+                try {
+                    // Cập nhật PotholeDetector để phát hiện ổ gà mới
+                    potholeDetector.updateLocation(location);
+
+                    // Cập nhật PotholeProximityDetector để cảnh báo ổ gà gần đó
+                    potholeProximityDetector.updateLocation(location);
+                } catch (Exception e) {
+                    Log.e("MainActivity", "Error updating location for detectors", e);
+                }
+            }).start();
+
             if (focusLocation) {
-                updateCamera(Point.fromLngLat(location.getLongitude(), location.getLatitude()), (double) location.getBearing());
+                updateCamera(Point.fromLngLat(location.getLongitude(), location.getLatitude()),
+                        (double) location.getBearing());
             }
-            potholeDetector.updateLocation(location);
         }
     };
     private final RoutesObserver routesObserver = new RoutesObserver() {
@@ -158,8 +194,6 @@ public class mapbox extends AppCompatActivity {
                     if (style != null) {
                         routeLineView.renderRouteDrawData(style, routeLineErrorRouteSetValueExpected);
                     }
-
-
                 }
             });
         }
@@ -250,6 +284,14 @@ public class mapbox extends AppCompatActivity {
     private Bitmap potholeBitmap;
     private Bitmap locationBitmap;
 
+    private PotholeProximityDetector potholeProximityDetector;
+
+    private CardView maneuverCardView;
+    private MapboxManeuverView maneuverView;
+    private TextView stepDistanceRemainingTextView;
+    private TextView stepInstructionTextView;
+
+    private MapboxManeuverApi maneuverApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -259,10 +301,6 @@ public class mapbox extends AppCompatActivity {
         mapView = findViewById(R.id.mapView);
         focusLocationBtn = findViewById(R.id.focusLocation);
         setRoute = findViewById(R.id.setRoute);
-        detectedPothole = findViewById(R.id.detectedPothole);
-        /////////////////////
-        //fetchPotholesAndLoadMarkers();
-        /////////////////////
 
         MapboxRouteLineOptions options = new MapboxRouteLineOptions.Builder(this).withRouteLineResources(new RouteLineResources.Builder().build())
                 .withRouteLineBelowLayerId(LocationComponentConstants.LOCATION_INDICATOR_LAYER).build();
@@ -272,7 +310,10 @@ public class mapbox extends AppCompatActivity {
         speechApi = new MapboxSpeechApi(mapbox.this, getString(R.string.mapbox_access_token), Locale.US.toLanguageTag());
         mapboxVoiceInstructionsPlayer = new MapboxVoiceInstructionsPlayer(mapbox.this, Locale.US.toLanguageTag());
 
-        NavigationOptions navigationOptions = new NavigationOptions.Builder(this).accessToken(getString(R.string.mapbox_access_token)).build();
+        NavigationOptions navigationOptions = new NavigationOptions.Builder(this)
+                .accessToken(getString(R.string.mapbox_access_token))
+
+                .build();
 
         MapboxNavigationApp.setup(navigationOptions);
         mapboxNavigation = new MapboxNavigation(navigationOptions);
@@ -343,8 +384,11 @@ public class mapbox extends AppCompatActivity {
         });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ActivityCompat.checkSelfPermission(mapbox.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                activityResultLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                        1);
             }
         }
 
@@ -366,6 +410,8 @@ public class mapbox extends AppCompatActivity {
                 Toast.makeText(mapbox.this, "Please select a location in map", Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
         mapView.getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS, style -> {
             initializePointAnnotationManager();
@@ -399,93 +445,43 @@ public class mapbox extends AppCompatActivity {
             }
         });
 
-        detectedPothole.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                focusLocation = true;
-                getGestures(mapView).addOnMoveListener(onMoveListener);
-                focusLocationBtn.hide();
-                 // lấy kinh độ vĩ độ tại vị trí đang đứng
-                Location currentLocation = navigationLocationProvider.getLastLocation();
-                double latitude = currentLocation.getLatitude();
-                double longitude = currentLocation.getLongitude();
-                int userId = 1; // mặc định
-                String severity = "low"; // mặc định
-
-                // Tạo đối tượng Pothole
-                detectedPotholeRequest pothole = new detectedPotholeRequest(userId, latitude, longitude, severity);
-                 // Gửi yêu cầu API
-                ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
-                Call<detectedPotholeResponse> call = apiService.detectedPothole(pothole);
-
-                // Thực hiện yêu cầu bất đồng bộ
-                call.enqueue(new Callback<detectedPotholeResponse>() {
-                    @Override
-                    public void onResponse(Call<detectedPotholeResponse> call, Response<detectedPotholeResponse> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            detectedPotholeResponse result = response.body();
-                             if ("success".equals(result.getStatus())) {
-                                 Toast.makeText(getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
-                             } else {
-                                 Toast.makeText(getApplicationContext(), "Error: " + result.getMessage(), Toast.LENGTH_SHORT).show();
-                             }
-                        } else {
-                            try {
-                                // Xử lý lỗi trả về từ server
-                                String errorBody = response.errorBody().string();
-                                Toast.makeText(getApplicationContext(), "Error: " + errorBody, Toast.LENGTH_SHORT).show();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<detectedPotholeResponse> call, Throwable t) {
-                        // Xử lý lỗi kết nối hoặc lỗi không xác định
-                        Toast.makeText(getApplicationContext(), "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-
         placeAutocompleteUiAdapter.addSearchListener(new PlaceAutocompleteUiAdapter.SearchListener() {
             @Override
             public void onSuggestionsShown(@NonNull List<PlaceAutocompleteSuggestion> list) {
 
             }
 
+            @Override
+            public void onSuggestionSelected(@NonNull PlaceAutocompleteSuggestion placeAutocompleteSuggestion) {
+                ignoreNextQueryUpdate = true;
+                focusLocation = false;
+                searchET.setText(placeAutocompleteSuggestion.getName());
+                searchResultsView.setVisibility(View.GONE);
+
+                pointAnnotationManager.deleteAll();
+                PointAnnotationOptions pointAnnotationOptions = new PointAnnotationOptions().withTextAnchor(TextAnchor.CENTER).withIconImage(bitmap)
+                        .withPoint(placeAutocompleteSuggestion.getCoordinate());
+                pointAnnotationManager.create(pointAnnotationOptions);
+                updateCamera(placeAutocompleteSuggestion.getCoordinate(), 0.0);
+
+                setRoute.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onSuggestionSelected(@NonNull PlaceAutocompleteSuggestion placeAutocompleteSuggestion) {
-                        ignoreNextQueryUpdate = true;
-                        focusLocation = false;
-                        searchET.setText(placeAutocompleteSuggestion.getName());
-                        searchResultsView.setVisibility(View.GONE);
-
-                        pointAnnotationManager.deleteAll();
-                        PointAnnotationOptions pointAnnotationOptions = new PointAnnotationOptions().withTextAnchor(TextAnchor.CENTER).withIconImage(bitmap)
-                                .withPoint(placeAutocompleteSuggestion.getCoordinate());
-                        pointAnnotationManager.create(pointAnnotationOptions);
-                        updateCamera(placeAutocompleteSuggestion.getCoordinate(), 0.0);
-
-                        setRoute.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                fetchRoute(placeAutocompleteSuggestion.getCoordinate());
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onPopulateQueryClick(@NonNull PlaceAutocompleteSuggestion placeAutocompleteSuggestion) {
-                        //queryEditText.setText(placeAutocompleteSuggestion.getName());
-                    }
-
-                    @Override
-                    public void onError(@NonNull Exception e) {
-
+                    public void onClick(View view) {
+                        fetchRoute(placeAutocompleteSuggestion.getCoordinate());
                     }
                 });
+            }
+
+            @Override
+            public void onPopulateQueryClick(@NonNull PlaceAutocompleteSuggestion placeAutocompleteSuggestion) {
+                //queryEditText.setText(placeAutocompleteSuggestion.getName());
+            }
+
+            @Override
+            public void onError(@NonNull Exception e) {
+
+            }
+        });
 
         potholeDetector = new PotholeDetector(this, new PotholeDetector.PotholeDetectorCallback() {
             @Override
@@ -501,50 +497,93 @@ public class mapbox extends AppCompatActivity {
                 });
             }
         });
+
+        potholeProximityDetector = new PotholeProximityDetector(this);
+
+        maneuverCardView = findViewById(R.id.maneuverCardView);
+        maneuverView = findViewById(R.id.maneuverView);
+        stepDistanceRemainingTextView = findViewById(R.id.stepDistanceRemainingTextView);
+        stepInstructionTextView = findViewById(R.id.stepInstructionTextView);
+
+        maneuverApi = new MapboxManeuverApi(
+                new DistanceFormatter() {
+                    @NonNull
+                    @Override
+                    public SpannableString formatDistance(double v) {
+                        return null;
+                    }
+
+                    @NonNull
+
+                    public String format(double distanceInMeters) {
+                        if (distanceInMeters < 1000) {
+                            return String.format(Locale.getDefault(), "%d m", (int) distanceInMeters);
+                        } else {
+                            return String.format(Locale.getDefault(), "%.1f km", distanceInMeters / 1000);
+                        }
+                    }
+
+                    @NonNull
+                    public UnitType getUnitType() {
+                        return UnitType.METRIC;
+                    }
+                }
+        );
+
+        mapboxNavigation.registerRouteProgressObserver(new RouteProgressObserver() {
+            @Override
+            public void onRouteProgressChanged(@NonNull RouteProgress routeProgress) {
+                maneuverCardView.setVisibility(View.VISIBLE);
+
+                Expected<ManeuverError, List<Maneuver>> maneuvers = maneuverApi.getManeuvers(routeProgress);
+                maneuvers.fold(
+                        error -> Unit.INSTANCE,
+                        maneuverList -> {
+                            if (!maneuverList.isEmpty()) {
+                                Maneuver maneuver = maneuverList.get(0);
+                                PrimaryManeuver primary = maneuver.getPrimary();
+
+                                double distanceRemaining = routeProgress.getCurrentLegProgress().getCurrentStepProgress().getDistanceRemaining();
+                                String formattedDistance = formatDistance(distanceRemaining);
+                                stepDistanceRemainingTextView.setText(formattedDistance);
+
+                                if (primary != null) {
+                                    String instruction = primary.getText();
+                                    if (instruction != null) {
+                                        stepInstructionTextView.setText(instruction);
+                                        maneuverView.renderManeuvers(maneuvers);
+                                    }
+                                }
+                            }
+                            return Unit.INSTANCE;
+                        }
+                );
+            }
+        });
+
+        LinearLayout homeLayout = findViewById(R.id.home);
+        homeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mapbox.this, dashboard.class);
+                startActivity(intent);
+            }
+        });
+
+        LinearLayout settingLayout = findViewById(R.id.setting);
+        settingLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mapbox.this, setting.class);
+                startActivity(intent);
+            }
+        });
     }
 
-<<<<<<< HEAD
-    //////////////////////////////////////
-//    private void fetchPotholesAndLoadMarkers() {
-//        ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
-//
-//        apiService.getPotholes().enqueue(new Callback<List<PotholeResponse>>() {
-//            @Override
-//            public void onResponse(Call<List<PotholeResponse>> call, Response<List<PotholeResponse>> response) {
-//                if (response.isSuccessful() && response.body() != null) {
-//                    loadMarkersOnMap(response.body());
-//                } else {
-//                    Log.e("API_ERROR", "Response failed");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<PotholeResponse>> call, Throwable t) {
-//                Log.e("API_ERROR", "Error: " + t.getMessage());
-//            }
-//        });
-//    }
-//
-//    private void loadMarkersOnMap(List<PotholeResponse> potholes) {
-//        MapboxMap mapboxMap = mapView.getMapboxMap();
-//        mapboxMap.loadStyleUri(Style.MAPBOX_STREETS, style -> {
-//            AnnotationPlugin annotationPlugin = AnnotationPluginImplKt.getAnnotations(mapView);
-//            PointAnnotationManager pointAnnotationManager = annotationPlugin.createPointAnnotationManager();
-//
-//            for (PotholeResponse pothole : potholes) {
-//                Point point = Point.fromLngLat(pothole.getLongitude(), pothole.getLatitude());
-//                PointAnnotationOptions options = new PointAnnotationOptions()
-//                        .withPoint(point)
-//                        .withIconImage(BitmapFactory.decodeResource(getResources(), R.drawable.img_pothole));
-//                pointAnnotationManager.create(options);
-//            }
-//        });
-//    }
-    /////////////////////////////////
-=======
     @Override
     protected void onResume() {
         super.onResume();
+        potholeProximityDetector.reset();
         potholeDetector.start();
     }
 
@@ -554,7 +593,6 @@ public class mapbox extends AppCompatActivity {
         potholeDetector.stop();
     }
 
->>>>>>> 16368d603163ef7d07d830cadd0bf0dbda90541e
     @SuppressLint("MissingPermission")
     private void fetchRoute(Point point) {
         LocationEngine locationEngine = LocationEngineProvider.getBestLocationEngine(mapbox.this);
@@ -563,7 +601,6 @@ public class mapbox extends AppCompatActivity {
             public void onSuccess(LocationEngineResult result) {
                 Location location = result.getLastLocation();
                 setRoute.setEnabled(false);
-                setRoute.setText("Fetching route...");
                 RouteOptions.Builder builder = RouteOptions.builder();
                 Point origin = Point.fromLngLat(Objects.requireNonNull(location).getLongitude(), location.getLatitude());
                 builder.coordinatesList(Arrays.asList(origin, point));
@@ -578,13 +615,11 @@ public class mapbox extends AppCompatActivity {
                         mapboxNavigation.setNavigationRoutes(list);
                         focusLocationBtn.performClick();
                         setRoute.setEnabled(true);
-                        setRoute.setText("Set route");
                     }
 
                     @Override
                     public void onFailure(@NonNull List<RouterFailure> list, @NonNull RouteOptions routeOptions) {
                         setRoute.setEnabled(true);
-                        setRoute.setText("Set route");
                         Toast.makeText(mapbox.this, "Route request failed", Toast.LENGTH_SHORT).show();
                     }
 
@@ -605,9 +640,28 @@ public class mapbox extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mapboxNavigation.onDestroy();
+        if (mapboxNavigation != null) {
+            mapboxNavigation.onDestroy();
+            mapboxNavigation = null;
+        }
         mapboxNavigation.unregisterRoutesObserver(routesObserver);
         mapboxNavigation.unregisterLocationObserver(locationObserver);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mapboxNavigation != null) {
+            mapboxNavigation.unregisterLocationObserver(locationObserver);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mapboxNavigation != null) {
+            mapboxNavigation.registerLocationObserver(locationObserver);
+        }
     }
 
     private Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
@@ -670,18 +724,14 @@ public class mapbox extends AppCompatActivity {
     }
 
     private void loadPotholesFromServer() {
-        Log.d("MainActivity", "Starting to load potholes from server");
         PotholeRepository.getInstance().getPotholes(new PotholeRepository.PotholeCallback() {
             @Override
             public void onSuccess(List<PotholeData> potholes) {
-                Log.d("MainActivity", "Successfully loaded " + potholes.size() + " potholes");
                 runOnUiThread(() -> {
-
                     pointAnnotationManager.deleteAll();
 
                     for (PotholeData pothole : potholes) {
                         Point point = Point.fromLngLat(pothole.getLongitude(), pothole.getLatitude());
-                        Log.d("MainActivity", "Creating marker at: " + point.toString());
 
                         PointAnnotationOptions pointAnnotationOptions = new PointAnnotationOptions()
                                 .withPoint(point)
@@ -689,38 +739,16 @@ public class mapbox extends AppCompatActivity {
                                 .withIconSize(1.5f);
 
                         pointAnnotationManager.create(pointAnnotationOptions);
-                        Log.d("MainActivity", "Created marker at: " + pothole.getLatitude() + ", " + pothole.getLongitude());
-                    }
-
-
-                    if (!potholes.isEmpty()) {
-                        List<Point> points = new ArrayList<>();
-                        for (PotholeData pothole : potholes) {
-                            points.add(Point.fromLngLat(pothole.getLongitude(), pothole.getLatitude()));
-                        }
-
-                        try {
-                            CameraOptions cameraPosition = mapView.getMapboxMap().cameraForCoordinates(
-                                    points,
-                                    new EdgeInsets(50.0, 50.0, 50.0, 50.0),
-                                    null,
-                                    null
-                            );
-                            mapView.getMapboxMap().setCamera(cameraPosition);
-                        } catch (Exception e) {
-                            Log.e("MainActivity", "Error setting camera: " + e.getMessage());
-                        }
                     }
                 });
             }
 
             @Override
             public void onError(String message) {
-                Log.e("MainActivity", "Error loading potholes: " + message);
                 runOnUiThread(() -> {
                     Toast.makeText(mapbox.this,
                             "Error loading potholes: " + message,
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                 });
             }
         });
@@ -728,7 +756,6 @@ public class mapbox extends AppCompatActivity {
 
     private void initializePointAnnotationManager() {
         mapView.getMapboxMap().getStyle(style -> {
-            // Tạo point annotation manager từ annotations plugin
             AnnotationPlugin annotationPlugin = AnnotationPluginImplKt.getAnnotations(mapView);
             pointAnnotationManager = PointAnnotationManagerKt.createPointAnnotationManager(
                     annotationPlugin,
@@ -745,9 +772,95 @@ public class mapbox extends AppCompatActivity {
 
                 style.addImage("pothole-marker", bitmap);
 
+                pointAnnotationManager.addClickListener(annotation -> {
+                    if (annotation.getIconImage() != null &&
+                            annotation.getIconImage().equals("pothole-marker")) {
+                        Point clickedPoint = annotation.getPoint();
+                        Log.d("Mapbox", "Clicked on pothole marker at: " +
+                                clickedPoint.latitude() + ", " + clickedPoint.longitude());
+
+                        showReportPotholeDialog(clickedPoint);
+                        return true;
+                    }
+                    return false;
+                });
+
                 loadPotholesFromServer();
             } else {
                 Log.e("MainActivity", "Could not load pothole marker drawable");
+            }
+        });
+    }
+
+    private void showPotholeDetailDialog(PotholeData pothole) {
+        PotholeDetailDialog dialog = new PotholeDetailDialog(this);
+        dialog.showPotholeDetails(pothole);
+    }
+
+    private String formatDistance(double distanceInMeters) {
+        if (distanceInMeters < 1000) {
+            return String.format(Locale.getDefault(), "%d m", (int) distanceInMeters);
+        } else {
+            return String.format(Locale.getDefault(), "%.1f km", distanceInMeters / 1000);
+        }
+    }
+
+    private void showReportPotholeDialog(Point location) {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.mapview_report_pothole);
+
+        EditText addressEditText = dialog.findViewById(R.id.dia_chi);
+        Spinner severitySpinner = dialog.findViewById(R.id.spinner_severity);
+        Button ignoreButton = dialog.findViewById(R.id.ignorebutton);
+        Button reportButton = dialog.findViewById(R.id.reportbutton);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.severity_levels, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        severitySpinner.setAdapter(adapter);
+
+        ignoreButton.setOnClickListener(v -> dialog.dismiss());
+
+        reportButton.setOnClickListener(v -> {
+            String address = addressEditText.getText().toString();
+            String severity = severitySpinner.getSelectedItem().toString();
+
+            PotholeData newPothole = new PotholeData(
+                    null,
+                    location.latitude(),
+                    location.longitude(),
+                    severity,
+                    0
+            );
+            newPothole.setLocation(address);
+
+            reportPotholeToServer(newPothole);
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+    private void reportPotholeToServer(PotholeData pothole) {
+        PotholeRepository.getInstance().addPothole(pothole, new PotholeRepository.AddPotholeCallback() {
+            @Override
+            public void onSuccess() {
+                runOnUiThread(() -> {
+                    Toast.makeText(mapbox.this,
+                            "Pothole reported successfully",
+                            Toast.LENGTH_SHORT).show();
+                    loadPotholesFromServer();
+                });
+            }
+
+            @Override
+            public void onError(String message) {
+                runOnUiThread(() -> {
+                    Toast.makeText(mapbox.this,
+                            "Error reporting pothole: " + message,
+                            Toast.LENGTH_SHORT).show();
+                });
             }
         });
     }
