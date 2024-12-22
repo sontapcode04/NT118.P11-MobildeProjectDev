@@ -85,7 +85,12 @@ public class dashboard extends AppCompatActivity {
                 Log.d("Dashboard", "Successfully loaded " + potholes.size() + " potholes");
 
                 //của user = ?
-
+                List<PotholeData> userPotholes = new ArrayList<>();
+                for (PotholeData pothole : potholes) {
+                    if (pothole.getUserId() == 1) { // Thay 1 bằng ID user của bạn
+                        userPotholes.add(pothole);
+                    }
+                }
                 // Xử lý số lượng pothole theo mức độ
                 int lowCount = 0;
                 int mediumCount = 0;

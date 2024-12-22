@@ -29,6 +29,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.latitudetv.setText(String.valueOf(items.get(position).getLatitude()));
         holder.longitudetv.setText(String.valueOf(items.get(position).getLongitude()));
         holder.severitytv.setText(String.valueOf(items.get(position).getSeverity()));
+        holder.createAttv.setText(String.valueOf(items.get(position).getCreateAt()));
     }
 
     @Override

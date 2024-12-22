@@ -32,10 +32,9 @@ public class notification extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.ListNoti);
 
         List<Item> items = new ArrayList<Item>();
-        items.add(new Item(10.755368, 106.680485, "14:00:00 01/11/2024", 3));
-        items.add(new Item(10.755368, 106.680485, "14:00:00 01/11/2024", 3));
-
-        items.add(new Item(10.755368, 106.680485, "14:00:00 01/11/2024", 3));
+        items.add(new Item(10.755368, 106.680485, "2024-12-10 20:48:45", 3));
+        items.add(new Item(10.8840129, 106.7797819, "2024-12-10 20:48:41", 1));
+        items.add(new Item(10.88386, 106.779659, "2024-12-10 20:48:47", 3));
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
