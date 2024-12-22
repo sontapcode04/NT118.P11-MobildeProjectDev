@@ -2,18 +2,23 @@ package com.example.mobileproject;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class setting extends AppCompatActivity {
     Dialog dialog;
     Button btnLogout, btnCancel;
+    private TextView fullNameTextView;
+    private TextView emailTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,20 @@ public class setting extends AppCompatActivity {
         RelativeLayout profileLayout = findViewById(R.id.btnProfile);
         RelativeLayout logoutLayout = findViewById(R.id.imglogout);
         RelativeLayout changePassword = findViewById(R.id.btnChange);
+
+        emailTextView = findViewById(R.id.edtEmail);
+        fullNameTextView= findViewById(R.id.edtFull_name);
+        // Lấy thông tin user từ SharedPreferences và hiển thị
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String fullName = sharedPreferences.getString("full_name", "");
+        String email = sharedPreferences.getString("email", "");
+
+        if (!fullName.isEmpty()) {
+            fullNameTextView.setText(fullName);
+        }
+        if (!email.isEmpty()) {
+            emailTextView.setText(email);
+        }
 
         // Khởi tạo dialog
         dialog = new Dialog(setting.this);

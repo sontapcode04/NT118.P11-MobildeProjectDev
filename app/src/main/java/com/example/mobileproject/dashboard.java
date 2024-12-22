@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.graphics.Color;
+import android.widget.TextView;
+import android.content.SharedPreferences;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -18,10 +20,35 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class dashboard extends AppCompatActivity {
     PieChart pieChart;
+    private TextView userIdTextView;
+    private TextView fullNameTextView;
+    private TextView emailTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
+
+        // Khởi tạo TextView
+        userIdTextView = findViewById(R.id.user_id);
+        fullNameTextView = findViewById(R.id.edtFull_name);
+        emailTextView = findViewById(R.id.edtEmail);
+        
+        // Lấy thông tin user từ SharedPreferences và hiển thị
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("user_id", -1);
+        String fullName = sharedPreferences.getString("full_name", "");
+        String email = sharedPreferences.getString("email", "");
+
+        if (userId != -1) {
+            userIdTextView.setText(String.valueOf(userId));
+        }
+        if (!fullName.isEmpty()) {
+            fullNameTextView.setText("Hi, " + fullName);
+        }
+        if (!email.isEmpty()) {
+            emailTextView.setText(email);
+        }
 
         ImageView setting = findViewById(R.id.imageViewSetting);
         setting.setOnClickListener(new View.OnClickListener() {

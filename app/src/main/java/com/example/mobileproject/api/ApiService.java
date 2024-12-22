@@ -11,6 +11,10 @@ import com.example.mobileproject.model.UpdatePasswordRequest;
 import com.example.mobileproject.model.UpdatePasswordResponse;
 import com.example.mobileproject.model.VerifyOtpRequest;
 import com.example.mobileproject.model.VerifyOtpResponse;
+import com.example.mobileproject.model.GoogleLoginRequest;
+import com.example.mobileproject.model.GoogleLoginResponse;
+import com.example.mobileproject.model.VerifyCurrentPasswordRequest;
+import com.example.mobileproject.model.VerifyCurrentPasswordResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -37,4 +41,12 @@ public interface ApiService {
     @POST("update_password.php")
     @Headers("Content-Type: application/json")
     Call<UpdatePasswordResponse> updatePassword(@Body UpdatePasswordRequest request);
+
+    @POST("google_login.php")
+    @Headers("Content-Type: application/json")
+    Call<GoogleLoginResponse> googleLogin(@Body GoogleLoginRequest request);
+
+    @POST("verify_current_password.php")
+    @Headers("Content-Type: application/json")
+    Call<VerifyCurrentPasswordResponse> verifyCurrentPassword(@Body VerifyCurrentPasswordRequest request);
 }
