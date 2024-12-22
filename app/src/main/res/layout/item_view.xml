@@ -1,10 +1,11 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="16dp"
     android:background="#FFFFFF"
-    android:elevation="4dp">
+    android:elevation="4dp"
+    tools:context="">
 
     <!-- Icon cảnh báo -->
     <ImageView
@@ -53,7 +54,7 @@
 
             <!-- Thời gian -->
             <TextView
-                android:id="@+id/time_text"
+                android:id="@+id/createAt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="14:00:00 01/11/2024"
@@ -78,11 +79,19 @@
 
             <!-- Văn bản tọa độ -->
             <TextView
-                android:id="@+id/coordinates_text"
+                android:id="@+id/latitude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10.755368 - 106.680485"
+                android:text="10.755368"
                 android:textSize="14sp"
+                android:textColor="#666666" />
+            <TextView
+                android:id="@+id/longitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="106.680485"
+                android:textSize="14sp"
+                android:layout_marginLeft="20dp"
                 android:textColor="#666666" />
         </LinearLayout>
         <LinearLayout
