@@ -96,15 +96,15 @@ public class dashboard extends AppCompatActivity {
                 int mediumCount = 0;
                 int highCount = 0;
                 for (PotholeData pothole : potholes) {
-                    int severity = (int) pothole.getSeverity(); // Chuyển về số nguyên
+                    String severity = pothole.getSeverity(); // Chuyển về số nguyên
                     switch (severity) {
-                        case 1:
+                        case "1":
                             lowCount++;
                             break;
-                        case 2:
+                        case "2":
                             mediumCount++;
                             break;
-                        case 3:
+                        case "3":
                             highCount++;
                             break;
                         default:
