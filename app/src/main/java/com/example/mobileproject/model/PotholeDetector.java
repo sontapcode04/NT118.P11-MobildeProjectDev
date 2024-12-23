@@ -106,7 +106,7 @@ public class PotholeDetector implements SensorEventListener {
                 null,
                 location.latitude(),
                 location.longitude(),
-                severityLevel,  // Sử dụng severity level đã chuyển đổi
+                severityLevel,
                 1  // Đảm bảo user_id hợp lệ
         );
 

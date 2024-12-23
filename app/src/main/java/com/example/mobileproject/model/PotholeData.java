@@ -18,9 +18,6 @@ public class PotholeData {
 
     private Integer id;
 
-    @SerializedName("location")
-    private String location;
-
     @SerializedName("created_at")
     private Date createdAt;
 
@@ -34,7 +31,6 @@ public class PotholeData {
 
     public PotholeData(Integer id, double latitude, double longitude, String severity, int userId, String location, Date createdAt) {
         this(id, latitude, longitude, severity, userId);
-        this.location = location;
         this.createdAt = createdAt;
     }
 
@@ -62,16 +58,8 @@ public class PotholeData {
         this.severity = severity;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public void setCreatedAt(Date createdAt) {

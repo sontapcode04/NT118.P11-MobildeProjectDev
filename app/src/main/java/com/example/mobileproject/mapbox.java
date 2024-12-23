@@ -8,7 +8,6 @@ import static com.mapbox.navigation.base.extensions.RouteOptionsExtensions.apply
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,12 +23,7 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -724,14 +718,20 @@ public class mapbox extends AppCompatActivity {
     }
 
     private void loadPotholesFromServer() {
+        Log.d("MainActivity", "Starting to load potholes from server");
         PotholeRepository.getInstance().getPotholes(new PotholeRepository.PotholeCallback() {
             @Override
             public void onSuccess(List<PotholeData> potholes) {
+                Log.d("MainActivity", "Successfully loaded " + potholes.size() + " potholes");
+
+                potholeProximityDetector.updatePotholes(potholes);
+
                 runOnUiThread(() -> {
                     pointAnnotationManager.deleteAll();
 
                     for (PotholeData pothole : potholes) {
                         Point point = Point.fromLngLat(pothole.getLongitude(), pothole.getLatitude());
+                        Log.d("MainActivity", "Creating marker at: " + point.toString());
 
                         PointAnnotationOptions pointAnnotationOptions = new PointAnnotationOptions()
                                 .withPoint(point)
@@ -739,16 +739,38 @@ public class mapbox extends AppCompatActivity {
                                 .withIconSize(1.5f);
 
                         pointAnnotationManager.create(pointAnnotationOptions);
+                        Log.d("MainActivity", "Created marker at: " + pothole.getLatitude() + ", " + pothole.getLongitude());
+                    }
+
+
+                    if (!potholes.isEmpty()) {
+                        List<Point> points = new ArrayList<>();
+                        for (PotholeData pothole : potholes) {
+                            points.add(Point.fromLngLat(pothole.getLongitude(), pothole.getLatitude()));
+                        }
+
+                        try {
+                            CameraOptions cameraPosition = mapView.getMapboxMap().cameraForCoordinates(
+                                    points,
+                                    new EdgeInsets(50.0, 50.0, 50.0, 50.0),
+                                    null,
+                                    null
+                            );
+                            mapView.getMapboxMap().setCamera(cameraPosition);
+                        } catch (Exception e) {
+                            Log.e("MainActivity", "Error setting camera: " + e.getMessage());
+                        }
                     }
                 });
             }
 
             @Override
             public void onError(String message) {
+                Log.e("MainActivity", "Error loading potholes: " + message);
                 runOnUiThread(() -> {
                     Toast.makeText(mapbox.this,
                             "Error loading potholes: " + message,
-                            Toast.LENGTH_SHORT).show();
+                            Toast.LENGTH_LONG).show();
                 });
             }
         });
@@ -756,6 +778,7 @@ public class mapbox extends AppCompatActivity {
 
     private void initializePointAnnotationManager() {
         mapView.getMapboxMap().getStyle(style -> {
+            // Tạo point annotation manager từ annotations plugin
             AnnotationPlugin annotationPlugin = AnnotationPluginImplKt.getAnnotations(mapView);
             pointAnnotationManager = PointAnnotationManagerKt.createPointAnnotationManager(
                     annotationPlugin,
@@ -772,29 +795,11 @@ public class mapbox extends AppCompatActivity {
 
                 style.addImage("pothole-marker", bitmap);
 
-                pointAnnotationManager.addClickListener(annotation -> {
-                    if (annotation.getIconImage() != null &&
-                            annotation.getIconImage().equals("pothole-marker")) {
-                        Point clickedPoint = annotation.getPoint();
-                        Log.d("Mapbox", "Clicked on pothole marker at: " +
-                                clickedPoint.latitude() + ", " + clickedPoint.longitude());
-
-                        showReportPotholeDialog(clickedPoint);
-                        return true;
-                    }
-                    return false;
-                });
-
                 loadPotholesFromServer();
             } else {
                 Log.e("MainActivity", "Could not load pothole marker drawable");
             }
         });
-    }
-
-    private void showPotholeDetailDialog(PotholeData pothole) {
-        PotholeDetailDialog dialog = new PotholeDetailDialog(this);
-        dialog.showPotholeDetails(pothole);
     }
 
     private String formatDistance(double distanceInMeters) {
@@ -803,65 +808,5 @@ public class mapbox extends AppCompatActivity {
         } else {
             return String.format(Locale.getDefault(), "%.1f km", distanceInMeters / 1000);
         }
-    }
-
-    private void showReportPotholeDialog(Point location) {
-        Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.mapview_report_pothole);
-
-        EditText addressEditText = dialog.findViewById(R.id.dia_chi);
-        Spinner severitySpinner = dialog.findViewById(R.id.spinner_severity);
-        Button ignoreButton = dialog.findViewById(R.id.ignorebutton);
-        Button reportButton = dialog.findViewById(R.id.reportbutton);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.severity_levels, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        severitySpinner.setAdapter(adapter);
-
-        ignoreButton.setOnClickListener(v -> dialog.dismiss());
-
-        reportButton.setOnClickListener(v -> {
-            String address = addressEditText.getText().toString();
-            String severity = severitySpinner.getSelectedItem().toString();
-
-            PotholeData newPothole = new PotholeData(
-                    null,
-                    location.latitude(),
-                    location.longitude(),
-                    severity,
-                    0
-            );
-            newPothole.setLocation(address);
-
-            reportPotholeToServer(newPothole);
-            dialog.dismiss();
-        });
-
-        dialog.show();
-    }
-
-    private void reportPotholeToServer(PotholeData pothole) {
-        PotholeRepository.getInstance().addPothole(pothole, new PotholeRepository.AddPotholeCallback() {
-            @Override
-            public void onSuccess() {
-                runOnUiThread(() -> {
-                    Toast.makeText(mapbox.this,
-                            "Pothole reported successfully",
-                            Toast.LENGTH_SHORT).show();
-                    loadPotholesFromServer();
-                });
-            }
-
-            @Override
-            public void onError(String message) {
-                runOnUiThread(() -> {
-                    Toast.makeText(mapbox.this,
-                            "Error reporting pothole: " + message,
-                            Toast.LENGTH_SHORT).show();
-                });
-            }
-        });
     }
 }

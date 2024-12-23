@@ -25,11 +25,6 @@ public class PotholeRepository {
         void onError(String message);
     }
 
-    public interface AddPotholeCallback {
-        void onSuccess();
-        void onError(String message);
-    }
-
     private PotholeRepository() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://nhom10.tanlamdevops.id.vn/")
@@ -78,24 +73,6 @@ public class PotholeRepository {
             public void onFailure(Call<List<PotholeResponse>> call, Throwable t) {
                 Log.e(TAG, "Error getting potholes: " + t.getMessage());
                 Log.e(TAG, "Stack trace: ", t);
-                callback.onError("Network error: " + t.getMessage());
-            }
-        });
-    }
-
-    public void addPothole(PotholeData pothole, AddPotholeCallback callback) {
-        potholeApi.addPothole(pothole).enqueue(new Callback<ApiResponse>() {
-            @Override
-            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-                if (response.isSuccessful()) {
-                    callback.onSuccess();
-                } else {
-                    callback.onError("Failed to add pothole");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponse> call, Throwable t) {
                 callback.onError("Network error: " + t.getMessage());
             }
         });
