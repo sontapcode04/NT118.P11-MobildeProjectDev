@@ -89,7 +89,7 @@
             android:id="@+id/txtaccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Account"
+            android:text="@string/account"
             android:textSize="15dp"
             android:textStyle="bold">
 
@@ -149,7 +149,7 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
-                android:text="Change password"
+                android:text="@string/change_password"
                 android:textStyle="bold">
 
             </TextView>
@@ -183,7 +183,7 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
-                android:text="Reward"
+                android:text="@string/reward"
                 android:textStyle="bold">
 
 
@@ -229,7 +229,7 @@
             android:id="@+id/txtsetting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="system settings"
+            android:text="@string/system_settings"
             android:textSize="15dp"
             android:textStyle="bold">
 
@@ -264,7 +264,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_toStartOf="@+id/imglanguage"
-                android:text="English">
+                android:text="@string/english">
 
 
             </TextView>

@@ -46,10 +46,15 @@
         <string name="do_you_want_to_log_out">Do you want to log out?</string>
         <string name="cancel">Cancel</string>
         <string name="resend_mail">Resend mail</string>
-        <string name="sign_in">SIGN IN</string>
         <string name="default_web_client_id">203414613649-jg8ritueegk47se9dio12fe8btafs97e.apps.googleusercontent.com</string>
-    <string name="phat_hien_luc">Phát hiện lúc</string>
-    <string name="notification">Notification</string>
+        <string name="phat_hien_luc">Create at</string>
+        <string name="notification">Notification</string>
+        <string name="account">Account</string>
+        <string name="english">English</string>
+        <string name="update">Update</string>
+        <string name="system_settings">system settings</string>
+        <string name="sign_in_cap">SIGN IN</string>
+        <string name="password">Password</string>
 
 
 </resources>
