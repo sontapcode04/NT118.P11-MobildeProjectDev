@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.graphics.Color;
 import android.widget.TextView;
+import android.content.SharedPreferences;
 
 import com.example.mobileproject.model.PotholeData;
 import com.example.mobileproject.model.PotholeRepository;
@@ -79,24 +80,36 @@ public class dashboard extends AppCompatActivity {
 
     private void loadPotholesFromServerToDashboard() {
         Log.d("Dashboard", "Starting to load potholes from server");
+
+        // Lấy user_id của người đang đăng nhập từ SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        int currentUserId = sharedPreferences.getInt("user_id", -1);
+
+        // Log để debug
+        Log.d("Dashboard", "Current user ID: " + currentUserId);
+
         PotholeRepository.getInstance().getPotholes(new PotholeRepository.PotholeCallback() {
             @Override
             public void onSuccess(List<PotholeData> potholes) {
                 Log.d("Dashboard", "Successfully loaded " + potholes.size() + " potholes");
 
-                //của user = ?
+                // Lọc potholes của user đang đăng nhập
                 List<PotholeData> userPotholes = new ArrayList<>();
                 for (PotholeData pothole : potholes) {
-                    if (pothole.getUserId() == 1) { // Thay 1 bằng ID user của bạn
+                    if (pothole.getUserId() == currentUserId) {
                         userPotholes.add(pothole);
                     }
                 }
-                // Xử lý số lượng pothole theo mức độ
+
+                // Đếm số lượng pothole theo mức độ của user đang đăng nhập
                 int lowCount = 0;
                 int mediumCount = 0;
                 int highCount = 0;
+
+
                 for (PotholeData pothole : potholes) {
                     String severity = pothole.getSeverity(); // Chuyển về số nguyên
+
                     switch (severity) {
                         case "1":
                             lowCount++;
@@ -112,7 +125,12 @@ public class dashboard extends AppCompatActivity {
                     }
                 }
 
-                // Cập nhật dữ liệu lên biểu đồ
+                // Log để debug
+                Log.d("Dashboard", "User's potholes count - Low: " + lowCount 
+                                                        + ", Medium: " + mediumCount 
+                                                        + ", High: " + highCount);
+
+                // Cập nhật biểu đồ
                 updatePieChart(lowCount, mediumCount, highCount);
             }
 
@@ -176,5 +194,15 @@ public class dashboard extends AppCompatActivity {
         TextView NameUser = findViewById(R.id.NameUser);
         TextView ScoreUser = findViewById(R.id.ScoreUser);
         ImageView notification = findViewById(R.id.notificationIcon);
+
+        // Lấy thông tin user từ SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String fullName = sharedPreferences.getString("full_name", "User");
+        String email = sharedPreferences.getString("email", "");
+
+        // Hiển thị thông tin
+        HelloUser.setText("Hi, " + fullName);
+        NameUser.setText(email);
+        // ScoreUser.setText("Score: " + score); // Nếu bạn có score
     }
 }

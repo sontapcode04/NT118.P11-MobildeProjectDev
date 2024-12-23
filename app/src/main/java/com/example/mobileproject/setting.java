@@ -2,13 +2,16 @@ package com.example.mobileproject;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +25,9 @@ public class setting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        // Thêm code để hiển thị thông tin user
+        displayUserInfo();
 
         // Ánh xạ các RelativeLayout
         RelativeLayout profileLayout = findViewById(R.id.btnProfile);
@@ -97,6 +103,22 @@ public class setting extends AppCompatActivity {
         Intent intent = new Intent(setting.this, profile.class);
         startActivity(intent);
     }
+
+    private void displayUserInfo() {
+        // Tìm TextView trong layout
+        TextView fullNameTextView = findViewById(R.id.edtFull_name);
+        TextView emailTextView = findViewById(R.id.edtEmail);
+
+        // Lấy thông tin từ SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String fullName = sharedPreferences.getString("full_name", "User");
+        String email = sharedPreferences.getString("email", "");
+
+        // Hiển thị thông tin
+        fullNameTextView.setText(fullName);
+        emailTextView.setText(email);
+    }
+
     private void toggleLanguage() {
         String currentLang = getResources().getConfiguration().locale.getLanguage();
 
@@ -115,5 +137,6 @@ public class setting extends AppCompatActivity {
         Intent intent = getIntent();
         finish();
         startActivity(intent);
+
     }
 }
