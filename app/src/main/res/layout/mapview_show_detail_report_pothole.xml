@@ -139,62 +139,14 @@
             android:text="14:00:00 10/01/2004"
             android:textAlignment="viewEnd" />
     </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relative_contributer"
-        android:layout_below="@id/relative_report_time"
-        android:layout_width="match_parent"
-        android:layout_height="48dp">
-        <TextView
-            android:id="@+id/tv_contributer_label"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_width="111dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="16dp"
-            android:text="Contributer :" />
-
-        <TextView
-            android:id="@+id/tv_contributer"
-            android:layout_width="215dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:text="Cong Son"
-            android:textAlignment="viewEnd" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relative_photo"
-        android:layout_below="@id/relative_contributer"
-        android:layout_width="match_parent"
-        android:layout_height="48dp">
-        <TextView
-            android:id="@+id/tv_photo_label"
-            android:layout_alignParentLeft="true"
-            android:layout_width="111dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
-            android:text="Photo " />
-
-    </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/image_photo"
-        android:layout_below="@id/relative_photo"
-        android:background="@drawable/photo_report"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        android:scaleType="centerCrop" />
-
+    
     <Button
         android:id="@+id/btn_back_pothole_detail_map"
-        android:layout_below="@+id/image_photo"
-        android:layout_marginTop="10dp"
         android:layout_width="343dp"
-        android:layout_height="56dp"
         android:layout_centerHorizontal="true"
+        android:layout_height="56dp"
+        android:layout_below="@+id/relative_report_time"
+        android:layout_marginTop="335dp"
         android:text="Back" />
 
 </RelativeLayout>
