@@ -29,12 +29,14 @@ public class dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
+        Log.d("LifecycleDashboard", "Dashboard onCreate called");
         AnhXa();
         ImageView setting = findViewById(R.id.imageViewSetting);
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(dashboard.this, setting.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });
@@ -83,7 +85,7 @@ public class dashboard extends AppCompatActivity {
 
         // Lấy user_id của người đang đăng nhập từ SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        int currentUserId = sharedPreferences.getInt("user_id", -1);
+        int currentUserId = sharedPreferences.getInt("user_id", 17);
 
         // Log để debug
         Log.d("Dashboard", "Current user ID: " + currentUserId);
@@ -207,5 +209,35 @@ public class dashboard extends AppCompatActivity {
         HelloUser.setText("Hi, " + fullName);
         NameUser.setText(email);
         // ScoreUser.setText("Score: " + score); // Nếu bạn có score
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("LifecycleDashboard", "Dashboard onPause called");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("LifecycleDashboard", "Dashboard onRestart called");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("LifecycleDashboard", "Dashboard onStart called");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("LifecycleDashboard", "Dashboard onResume called");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("LifecycleDashboard", "Dashboard onStop called");
     }
 }

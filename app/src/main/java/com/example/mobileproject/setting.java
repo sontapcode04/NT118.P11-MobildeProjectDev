@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,7 +26,7 @@ public class setting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-
+        Log.d("LifecycleSetting", "Setting onCreate called");
         // Thêm code để hiển thị thông tin user
         displayUserInfo();
 
@@ -59,6 +60,7 @@ public class setting extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(setting.this, dashboard.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });
@@ -138,5 +140,35 @@ public class setting extends AppCompatActivity {
         finish();
         startActivity(intent);
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("LifecycleSetting", "Setting onPause called");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("LifecycleSetting", "Setting onRestart called");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("LifecycleSetting", "Setting onResume called");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("LifecycleSetting", "Setting onStart called");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("LifecycleSetting", "Setting onStop called");
     }
 }
