@@ -3,6 +3,8 @@ package com.example.mobileproject;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Locale;
 
 public class setting extends AppCompatActivity {
     Dialog dialog;
@@ -29,6 +33,7 @@ public class setting extends AppCompatActivity {
         RelativeLayout profileLayout = findViewById(R.id.btnProfile);
         RelativeLayout logoutLayout = findViewById(R.id.imglogout);
         RelativeLayout changePassword = findViewById(R.id.btnChange);
+        RelativeLayout languageLayout = findViewById(R.id.btnChange_Language);
 
         // Khởi tạo dialog
         dialog = new Dialog(setting.this);
@@ -86,10 +91,10 @@ public class setting extends AppCompatActivity {
         });
 
         // Hiển thị dialog khi nhấn vào logoutLayout
-        logoutLayout.setOnClickListener(new View.OnClickListener() {
+        languageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+                toggleLanguage();
             }
         });
     }
@@ -112,5 +117,26 @@ public class setting extends AppCompatActivity {
         // Hiển thị thông tin
         fullNameTextView.setText(fullName);
         emailTextView.setText(email);
+    }
+
+    private void toggleLanguage() {
+        String currentLang = getResources().getConfiguration().locale.getLanguage();
+
+        Locale newLocale;
+        if (currentLang.equals("vi")) {
+            newLocale = new Locale("en");
+        } else {
+            newLocale = new Locale("vi");
+        }
+
+        Locale.setDefault(newLocale);
+        Configuration config = new Configuration();
+        config.setLocale(newLocale);
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+
     }
 }

@@ -3,7 +3,6 @@ package com.example.mobileproject.model;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.mobileproject.api.ApiService;
 import com.example.mobileproject.mapbox;
 import com.example.mobileproject.api.ApiService;
 import com.example.mobileproject.model.PotholeData;
@@ -49,11 +48,19 @@ public class PotholeRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     List<PotholeData> potholes = new ArrayList<>();
                     for (PotholeResponse item : response.body()) {
+                        Integer id = null;
+                        try {
+                            id = Integer.parseInt(item.getId());
+                        } catch (NumberFormatException e) {
+                            Log.e(TAG, "Error parsing ID: " + e.getMessage());
+                        }
+
                         potholes.add(new PotholeData(
+                                id,
                                 item.getLatitude(),
                                 item.getLongitude(),
-                                item.getSeverity(),  // severity không cần thiết
-                                item.getUserId()     // user_id không cần thiết
+                                item.getSeverity(),
+                                0
                         ));
                     }
                     callback.onSuccess(potholes);

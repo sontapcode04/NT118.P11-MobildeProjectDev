@@ -1,6 +1,7 @@
 package com.example.mobileproject.model;
-
 import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
 
 public class PotholeData {
     @SerializedName("latitude")
@@ -10,16 +11,31 @@ public class PotholeData {
     private double longitude;
 
     @SerializedName("severity")
-    private double severity;
+    private String severity;
 
     @SerializedName("user_id")
     private int userId;
 
-    public PotholeData(double latitude, double longitude, double severity, int userId) {
+    private Integer id;
+
+    @SerializedName("created_at")
+    private Date createdAt;
+
+    public PotholeData(Integer id, double latitude, double longitude, String severity, int userId) {
+        this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
         this.severity = severity;
         this.userId = userId;
+    }
+
+    public PotholeData(Integer id, double latitude, double longitude, String severity, int userId, String location, Date createdAt) {
+        this(id, latitude, longitude, severity, userId);
+        this.createdAt = createdAt;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public double getLatitude() {
@@ -30,12 +46,24 @@ public class PotholeData {
         return longitude;
     }
 
-    public double getSeverity() {
+    public String getSeverity() {
         return severity;
     }
 
     public int getUserId() {
         return userId;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
 }

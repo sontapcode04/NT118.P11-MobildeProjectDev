@@ -53,4 +53,9 @@ dependencies {
     implementation(libs.mpandroidchart)
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     //implementation ("com.mapbox.maps:plugin-annotation:10.15.0")
+    implementation("com.mapbox.navigation:ui-maneuver:2.15.2")
+    implementation("com.mapbox.navigation:android:2.17.4")
+    implementation ("com.mapbox.navigation:ui-base:2.17.4")
+    implementation ("com.mapbox.navigation:core:2.17.4")
+
 }
