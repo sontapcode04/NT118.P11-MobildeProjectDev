@@ -25,7 +25,7 @@
         android:theme="@style/Theme.Material3.DayNight.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".mapbox"
+            android:name=".welcome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,7 +57,10 @@
             android:exported="false"/>
         <activity android:name=".password_reset_successful"
             android:exported="false"/>
-
+        <activity android:name=".mapbox"
+            android:exported="false"/>
+        <activity android:name=".notification"
+            android:exported="false"/>
     </application>
 
 </manifest>

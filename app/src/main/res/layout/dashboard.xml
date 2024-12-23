@@ -41,6 +41,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/helloUser"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hi, user"
@@ -49,12 +50,14 @@
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/NameUser"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/fullname"
                         android:textColor="@android:color/white" />
 
                     <TextView
+                        android:id="@+id/ScoreUser"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="3999"
@@ -65,6 +68,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/noti_icon"
+                    android:id="@+id/notificationIcon"
+                    android:clickable="true"
                     android:contentDescription="@string/notifications_icon" />
             </LinearLayout>
 
@@ -258,16 +263,16 @@
                     android:layout_marginStart="8dp"/>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/detected_potholes"
-                android:textStyle="bold"
-                android:textColor="@color/blue"
-                android:textSize="16sp"
-                android:paddingStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_gravity="start"/>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/detected_potholes"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/blue"-->
+<!--                android:textSize="16sp"-->
+<!--                android:paddingStart="16dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_gravity="start"/>-->
 
         </LinearLayout>
     </ScrollView>

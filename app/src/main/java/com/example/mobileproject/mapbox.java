@@ -39,7 +39,9 @@ import androidx.core.content.ContextCompat;
 import com.example.mobileproject.api.ApiService;
 import com.example.mobileproject.api.RetrofitClient;
 
+
 import com.example.mobileproject.model.PotholeProximityDetector;
+
 import com.example.mobileproject.model.PotholeResponse;
 
 import com.example.mobileproject.model.PotholeData;
