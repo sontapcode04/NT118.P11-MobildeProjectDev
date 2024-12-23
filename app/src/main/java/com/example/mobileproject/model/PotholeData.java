@@ -29,7 +29,7 @@ public class PotholeData {
         this.userId = userId;
     }
 
-    public PotholeData(Integer id, double latitude, double longitude, String severity, int userId, String location, Date createdAt) {
+    public PotholeData(Integer id, double latitude, double longitude, String severity, int userId, Date createdAt) {
         this(id, latitude, longitude, severity, userId);
         this.createdAt = createdAt;
     }
@@ -54,12 +54,12 @@ public class PotholeData {
         return userId;
     }
 
-    public void setSeverity(String severity) {
-        this.severity = severity;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
     }
 
     public void setCreatedAt(Date createdAt) {

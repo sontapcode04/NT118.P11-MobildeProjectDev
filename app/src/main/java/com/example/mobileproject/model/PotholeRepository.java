@@ -60,7 +60,8 @@ public class PotholeRepository {
                                 item.getLatitude(),
                                 item.getLongitude(),
                                 item.getSeverity(),
-                                0
+                                item.getUserId(),
+                                null
                         ));
                     }
                     callback.onSuccess(potholes);

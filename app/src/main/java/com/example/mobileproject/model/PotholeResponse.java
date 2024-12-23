@@ -16,7 +16,7 @@ public class PotholeResponse {
     private String severity;
 
     @SerializedName("timestamp")
-    private long timestamp;
+    private String timestamp;
 
     @SerializedName("created_at")
     private String createdAt;
@@ -41,12 +41,12 @@ public class PotholeResponse {
         return severity;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
     public int getUserId() {
         return userId;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
     }
 
 

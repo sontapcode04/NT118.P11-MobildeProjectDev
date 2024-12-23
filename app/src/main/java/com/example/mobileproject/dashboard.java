@@ -93,6 +93,7 @@ public class dashboard extends AppCompatActivity {
             public void onSuccess(List<PotholeData> potholes) {
                 Log.d("Dashboard", "Successfully loaded " + potholes.size() + " potholes");
 
+
                 // Lọc potholes của user đang đăng nhập
                 List<PotholeData> userPotholes = new ArrayList<>();
                 for (PotholeData pothole : potholes) {
@@ -101,13 +102,15 @@ public class dashboard extends AppCompatActivity {
                     }
                 }
 
+                Log.d("Dashboard", "Filtered " + userPotholes.size() + " potholes for current user");
+
                 // Đếm số lượng pothole theo mức độ của user đang đăng nhập
                 int lowCount = 0;
                 int mediumCount = 0;
                 int highCount = 0;
 
 
-                for (PotholeData pothole : potholes) {
+                for (PotholeData pothole : userPotholes) {
                     String severity = pothole.getSeverity(); // Chuyển về số nguyên
 
                     switch (severity) {
