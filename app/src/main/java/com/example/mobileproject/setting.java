@@ -137,9 +137,8 @@ public class setting extends AppCompatActivity {
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
         Intent intent = getIntent();
-        finish();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-
     }
 
     @Override

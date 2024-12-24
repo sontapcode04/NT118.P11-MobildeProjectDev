@@ -36,7 +36,7 @@
     <string name="distribution_potholes_by_severity_level">Phân bố ổ gà theo mức độ nghiêm trọng</string>
     <string name="back_button">back button</string>
     <string name="pothole_img">Pothole img</string>
-    <string name="score">Score</string>
+    <string name="score">Điểm</string>
     <string name="low">\ \ Thấp</string>
     <string name="high">\ \ Cao</string>
     <string name="medium">\ \ Vừa</string>
