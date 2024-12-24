@@ -121,6 +121,26 @@ public class setting extends AppCompatActivity {
         emailTextView.setText(email);
     }
 
+//    private void toggleLanguage() {
+//        String currentLang = getResources().getConfiguration().locale.getLanguage();
+//
+//        Locale newLocale;
+//        if (currentLang.equals("vi")) {
+//            newLocale = new Locale("en");
+//        } else {
+//            newLocale = new Locale("vi");
+//        }
+//
+//        Locale.setDefault(newLocale);
+//        Configuration config = new Configuration();
+//        config.setLocale(newLocale);
+//        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+//
+//        Intent intent = getIntent();
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        startActivity(intent);
+//    }
+
     private void toggleLanguage() {
         String currentLang = getResources().getConfiguration().locale.getLanguage();
 
@@ -136,10 +156,17 @@ public class setting extends AppCompatActivity {
         config.setLocale(newLocale);
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
-        Intent intent = getIntent();
+        // Tạo intent để reload ứng dụng
+        Intent intent = new Intent(this, setting.class); // MainActivity là activity khởi động chính
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        // Khởi chạy lại activity
         startActivity(intent);
+
+        // Kết thúc ứng dụng hiện tại
+        finish();
     }
+
 
     @Override
     protected void onPause() {
