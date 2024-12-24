@@ -97,19 +97,21 @@ public class dashboard extends AppCompatActivity {
                 // tổng user
                 int totalUsers = 0;
                 int userIDPre = 0;
-
+                int totalPothole = 0;
                 // Lọc potholes của user đang đăng nhập
                 List<PotholeData> userPotholes = new ArrayList<>();
                 for (PotholeData pothole : potholes) {
                     if (pothole.getUserId() == currentUserId) {
                         userPotholes.add(pothole);
+                        totalPothole++;
                     }
                     if (userIDPre != pothole.getUserId()) {
                         totalUsers++;
                     }
                     userIDPre = pothole.getUserId();
                 }
-
+                TextView soLuongPothole = findViewById(R.id.soLuongPothole);
+                soLuongPothole.setText(String.valueOf(totalPothole));
                 TextView soLuongUser = findViewById(R.id.UserOnline);
                 soLuongUser.setText(String.valueOf(totalUsers));
 
@@ -121,7 +123,7 @@ public class dashboard extends AppCompatActivity {
                 int highCount = 0;
 
 
-                for (PotholeData pothole : potholes) {
+                for (PotholeData pothole : userPotholes) {
                     try {
                         int severity = Integer.parseInt(pothole.getSeverity()); // Parse String to int
                         switch (severity) {
@@ -143,9 +145,9 @@ public class dashboard extends AppCompatActivity {
                 }
 
                 // Log để debug
-                Log.d("Dashboard", "User's potholes count - Low: " + lowCount 
-                                                        + ", Medium: " + mediumCount 
-                                                        + ", High: " + highCount);
+                Log.d("Dashboard", "User's potholes count - Low: " + lowCount
+                        + ", Medium: " + mediumCount
+                        + ", High: " + highCount);
 
                 // Cập nhật biểu đồ
                 updatePieChart(lowCount, mediumCount, highCount);
