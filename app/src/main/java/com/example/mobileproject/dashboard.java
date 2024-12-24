@@ -95,20 +95,25 @@ public class dashboard extends AppCompatActivity {
                 int lowCount = 0;
                 int mediumCount = 0;
                 int highCount = 0;
+
                 for (PotholeData pothole : potholes) {
-                    int severity = (int) pothole.getSeverity(); // Chuyển về số nguyên
-                    switch (severity) {
-                        case 1:
-                            lowCount++;
-                            break;
-                        case 2:
-                            mediumCount++;
-                            break;
-                        case 3:
-                            highCount++;
-                            break;
-                        default:
-                            Log.w("Dashboard", "Unknown severity: " + severity);
+                    try {
+                        int severity = Integer.parseInt(pothole.getSeverity()); // Parse String to int
+                        switch (severity) {
+                            case 1:
+                                lowCount++;
+                                break;
+                            case 2:
+                                mediumCount++;
+                                break;
+                            case 3:
+                                highCount++;
+                                break;
+                            default:
+                                Log.w("Dashboard", "Unknown severity: " + severity);
+                        }
+                    } catch (NumberFormatException e) {
+                        Log.e("Dashboard", "Error parsing severity: " + pothole.getSeverity(), e);
                     }
                 }
 
