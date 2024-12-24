@@ -22,6 +22,7 @@ public class welcome extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(welcome.this, Signin.class);
                 startActivity(intent);
+                finish();
             }
         });
         btnSignUp.setOnClickListener(new View.OnClickListener() {
@@ -29,6 +30,7 @@ public class welcome extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(welcome.this, SignUp.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

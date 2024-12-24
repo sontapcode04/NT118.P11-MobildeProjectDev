@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.graphics.Color;
 import android.widget.TextView;
+import android.content.SharedPreferences;
 
 import com.example.mobileproject.model.PotholeData;
 import com.example.mobileproject.model.PotholeRepository;
@@ -28,12 +29,14 @@ public class dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
+        Log.d("LifecycleDashboard", "Dashboard onCreate called");
         AnhXa();
         ImageView setting = findViewById(R.id.imageViewSetting);
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(dashboard.this, setting.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });
@@ -79,22 +82,44 @@ public class dashboard extends AppCompatActivity {
 
     private void loadPotholesFromServerToDashboard() {
         Log.d("Dashboard", "Starting to load potholes from server");
+
+        // Lấy user_id của người đang đăng nhập từ SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        int currentUserId = sharedPreferences.getInt("user_id", 17);
+
+        // Log để debug
+        Log.d("Dashboard", "Current user ID: " + currentUserId);
+
         PotholeRepository.getInstance().getPotholes(new PotholeRepository.PotholeCallback() {
             @Override
             public void onSuccess(List<PotholeData> potholes) {
                 Log.d("Dashboard", "Successfully loaded " + potholes.size() + " potholes");
+                // tổng user
+                int totalUsers = 0;
+                int userIDPre = 0;
 
-                //của user = ?
+                // Lọc potholes của user đang đăng nhập
                 List<PotholeData> userPotholes = new ArrayList<>();
                 for (PotholeData pothole : potholes) {
-                    if (pothole.getUserId() == 1) { // Thay 1 bằng ID user của bạn
+                    if (pothole.getUserId() == currentUserId) {
                         userPotholes.add(pothole);
                     }
+                    if (userIDPre != pothole.getUserId()) {
+                        totalUsers++;
+                    }
+                    userIDPre = pothole.getUserId();
                 }
-                // Xử lý số lượng pothole theo mức độ
+
+                TextView soLuongUser = findViewById(R.id.UserOnline);
+                soLuongUser.setText(String.valueOf(totalUsers));
+
+                Log.d("Dashboard", "Filtered " + userPotholes.size() + " potholes for current user");
+
+                // Đếm số lượng pothole theo mức độ của user đang đăng nhập
                 int lowCount = 0;
                 int mediumCount = 0;
                 int highCount = 0;
+
 
                 for (PotholeData pothole : potholes) {
                     try {
@@ -117,7 +142,12 @@ public class dashboard extends AppCompatActivity {
                     }
                 }
 
-                // Cập nhật dữ liệu lên biểu đồ
+                // Log để debug
+                Log.d("Dashboard", "User's potholes count - Low: " + lowCount 
+                                                        + ", Medium: " + mediumCount 
+                                                        + ", High: " + highCount);
+
+                // Cập nhật biểu đồ
                 updatePieChart(lowCount, mediumCount, highCount);
             }
 
@@ -181,5 +211,45 @@ public class dashboard extends AppCompatActivity {
         TextView NameUser = findViewById(R.id.NameUser);
         TextView ScoreUser = findViewById(R.id.ScoreUser);
         ImageView notification = findViewById(R.id.notificationIcon);
+
+        // Lấy thông tin user từ SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String fullName = sharedPreferences.getString("full_name", "User");
+        String email = sharedPreferences.getString("email", "");
+
+        // Hiển thị thông tin
+        HelloUser.setText("Hi, " + fullName);
+        NameUser.setText(email);
+        // ScoreUser.setText("Score: " + score); // Nếu bạn có score
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("LifecycleDashboard", "Dashboard onPause called");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("LifecycleDashboard", "Dashboard onRestart called");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("LifecycleDashboard", "Dashboard onStart called");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("LifecycleDashboard", "Dashboard onResume called");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("LifecycleDashboard", "Dashboard onStop called");
     }
 }

@@ -12,6 +12,8 @@ import com.example.mobileproject.model.RegisterRequest;
 import com.example.mobileproject.model.RegisterResponse;
 import com.example.mobileproject.model.UpdatePasswordRequest;
 import com.example.mobileproject.model.UpdatePasswordResponse;
+import com.example.mobileproject.model.VerifyCurrentPasswordRequest;
+import com.example.mobileproject.model.VerifyCurrentPasswordResponse;
 import com.example.mobileproject.model.VerifyOtpRequest;
 import com.example.mobileproject.model.VerifyOtpResponse;
 import com.example.mobileproject.model.detectedPotholeRequest;
@@ -62,4 +64,9 @@ public interface ApiService {
             @Query("latitude") double latitude,
             @Query("longitude") double longitude
     );
+
+    @POST("verify_current_password.php")
+    @Headers("Content-Type: application/json")
+    Call<VerifyCurrentPasswordResponse> verifyCurrentPassword(@Body VerifyCurrentPasswordRequest request);
+
 }

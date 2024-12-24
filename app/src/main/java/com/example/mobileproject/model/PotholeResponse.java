@@ -3,6 +3,11 @@ package com.example.mobileproject.model;
 import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class PotholeResponse {
     @SerializedName("id")
     private String id;
@@ -17,7 +22,7 @@ public class PotholeResponse {
     private String severity;
 
     @SerializedName("timestamp")
-    private long timestamp;
+    private String timestamp;
 
     @SerializedName("created_at")
     private String createdAt;
@@ -38,7 +43,6 @@ public class PotholeResponse {
         return longitude;
     }
 
-
     public String getSeverity() {
         return severity;
     }
@@ -55,6 +59,10 @@ public class PotholeResponse {
         return userId;
     }
 
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
 
     public PotholeData getData() {
         PotholeData data = new PotholeData(
@@ -65,6 +73,7 @@ public class PotholeResponse {
                 userId,
                 null,
                 createdAt != null ? new Date(timestamp * 1000) : null
+
         );
         return data;
     }

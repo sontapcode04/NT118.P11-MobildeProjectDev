@@ -1,7 +1,9 @@
 package com.example.mobileproject.model;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class PotholeData {
     @SerializedName("latitude")
@@ -29,7 +31,7 @@ public class PotholeData {
         this.userId = userId;
     }
 
-    public PotholeData(Integer id, double latitude, double longitude, String severity, int userId, String location, Date createdAt) {
+    public PotholeData(Integer id, double latitude, double longitude, String severity, int userId, Date createdAt) {
         this(id, latitude, longitude, severity, userId);
         this.createdAt = createdAt;
     }
@@ -54,12 +56,12 @@ public class PotholeData {
         return userId;
     }
 
-    public void setSeverity(String severity) {
-        this.severity = severity;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
     }
 
     public void setCreatedAt(Date createdAt) {
@@ -74,6 +76,14 @@ public class PotholeData {
                 ", severity='" + severity + '\'' +
                 ", createdAt=" + createdAt +
                 '}';
+    }
+
+    public String getFormattedCreatedAt() {
+        if (createdAt == null) {
+            return "N/A"; // Giá trị mặc định nếu null
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return formatter.format(createdAt);
     }
 
 }

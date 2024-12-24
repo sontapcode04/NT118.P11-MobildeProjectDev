@@ -2,13 +2,17 @@ package com.example.mobileproject;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +26,9 @@ public class setting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        Log.d("LifecycleSetting", "Setting onCreate called");
+        // Thêm code để hiển thị thông tin user
+        displayUserInfo();
 
         // Ánh xạ các RelativeLayout
         RelativeLayout profileLayout = findViewById(R.id.btnProfile);
@@ -51,6 +58,7 @@ public class setting extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(setting.this, dashboard.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });
@@ -106,6 +114,42 @@ public class setting extends AppCompatActivity {
         Intent intent = new Intent(setting.this, profile.class);
         startActivity(intent);
     }
+
+    private void displayUserInfo() {
+        // Tìm TextView trong layout
+        TextView fullNameTextView = findViewById(R.id.edtFull_name);
+        TextView emailTextView = findViewById(R.id.edtEmail);
+
+        // Lấy thông tin từ SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String fullName = sharedPreferences.getString("full_name", "User");
+        String email = sharedPreferences.getString("email", "");
+
+        // Hiển thị thông tin
+        fullNameTextView.setText(fullName);
+        emailTextView.setText(email);
+    }
+
+//    private void toggleLanguage() {
+//        String currentLang = getResources().getConfiguration().locale.getLanguage();
+//
+//        Locale newLocale;
+//        if (currentLang.equals("vi")) {
+//            newLocale = new Locale("en");
+//        } else {
+//            newLocale = new Locale("vi");
+//        }
+//
+//        Locale.setDefault(newLocale);
+//        Configuration config = new Configuration();
+//        config.setLocale(newLocale);
+//        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+//
+//        Intent intent = getIntent();
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        startActivity(intent);
+//    }
+
     private void toggleLanguage() {
         String currentLang = getResources().getConfiguration().locale.getLanguage();
 
@@ -121,9 +165,46 @@ public class setting extends AppCompatActivity {
         config.setLocale(newLocale);
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
-        Intent intent = getIntent();
-        finish();
+        // Tạo intent để reload ứng dụng
+        Intent intent = new Intent(this, setting.class); // MainActivity là activity khởi động chính
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        // Khởi chạy lại activity
         startActivity(intent);
+
+        // Kết thúc ứng dụng hiện tại
+        finish();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("LifecycleSetting", "Setting onPause called");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("LifecycleSetting", "Setting onRestart called");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("LifecycleSetting", "Setting onResume called");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("LifecycleSetting", "Setting onStart called");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("LifecycleSetting", "Setting onStop called");
     }
 
     // Thêm phương thức performLogout

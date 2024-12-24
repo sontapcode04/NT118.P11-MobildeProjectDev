@@ -10,6 +10,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -152,6 +153,7 @@ public class mapbox extends AppCompatActivity {
     MapView mapView;
     FloatingActionButton setRoute;
     FloatingActionButton focusLocationBtn;
+    FloatingActionButton detectedPothole;
     private final NavigationLocationProvider navigationLocationProvider = new NavigationLocationProvider();
     private MapboxRouteLineView routeLineView;
     private MapboxRouteLineApi routeLineApi;
@@ -474,6 +476,60 @@ public class mapbox extends AppCompatActivity {
                 focusLocationBtn.hide();
             }
         });
+
+        ////////////////////////////////
+        detectedPothole = findViewById(R.id.detectedPothole);
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("user_id", -1);
+        detectedPothole.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                focusLocation = true;
+                getGestures(mapView).addOnMoveListener(onMoveListener);
+                focusLocationBtn.hide();
+                // lấy kinh độ vĩ độ tại vị trí đang đứng
+                Location currentLocation = navigationLocationProvider.getLastLocation();
+                double latitude = currentLocation.getLatitude();
+                double longitude = currentLocation.getLongitude();
+                String severity = "low"; // mặc định
+
+                // Tạo đối tượng Pothole
+                detectedPotholeRequest pothole = new detectedPotholeRequest(userId, latitude, longitude, severity);
+                // Gửi yêu cầu API
+                ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
+                Call<detectedPotholeResponse> call = apiService.detectedPothole(pothole);
+
+                // Thực hiện yêu cầu bất đồng bộ
+                call.enqueue(new Callback<detectedPotholeResponse>() {
+                    @Override
+                    public void onResponse(Call<detectedPotholeResponse> call, Response<detectedPotholeResponse> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            detectedPotholeResponse result = response.body();
+                            if ("success".equals(result.getStatus())) {
+                                Toast.makeText(getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Error: " + result.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            try {
+                                // Xử lý lỗi trả về từ server
+                                String errorBody = response.errorBody().string();
+                                Toast.makeText(getApplicationContext(), "Error: " + errorBody, Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<detectedPotholeResponse> call, Throwable t) {
+                        // Xử lý lỗi kết nối hoặc lỗi không xác định
+                        Toast.makeText(getApplicationContext(), "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+        //////////////////////////
 
         placeAutocompleteUiAdapter.addSearchListener(new PlaceAutocompleteUiAdapter.SearchListener() {
             @Override
