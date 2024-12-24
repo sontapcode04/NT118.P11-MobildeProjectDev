@@ -66,4 +66,14 @@ public class PotholeData {
         this.createdAt = createdAt;
     }
 
+    @Override
+    public String toString() {
+        return "PotholeData{" +
+                "latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", severity='" + severity + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
+
 }

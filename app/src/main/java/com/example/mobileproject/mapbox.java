@@ -23,6 +23,8 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,6 +73,7 @@ import com.mapbox.maps.extension.style.layers.properties.generated.TextAnchor;
 import com.mapbox.maps.plugin.animation.MapAnimationOptions;
 import com.mapbox.maps.plugin.annotation.AnnotationPlugin;
 import com.mapbox.maps.plugin.annotation.AnnotationPluginImplKt;
+import com.mapbox.maps.plugin.annotation.generated.PointAnnotation;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManagerKt;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
@@ -127,8 +130,10 @@ import com.mapbox.navigation.ui.maneuver.model.PrimaryManeuver;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 import kotlin.Unit;
@@ -287,6 +292,8 @@ public class mapbox extends AppCompatActivity {
 
     private MapboxManeuverApi maneuverApi;
 
+    private Map<Long, PotholeData> potholeDataMap = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -416,17 +423,44 @@ public class mapbox extends AppCompatActivity {
         addOnMapClickListener(mapView.getMapboxMap(), new OnMapClickListener() {
             @Override
             public boolean onMapClick(@NonNull Point point) {
-                pointAnnotationManager.deleteAll();
-                PointAnnotationOptions pointAnnotationOptions = new PointAnnotationOptions().withTextAnchor(TextAnchor.CENTER).withIconImage(bitmap)
-                        .withPoint(point);
-                pointAnnotationManager.create(pointAnnotationOptions);
+                // Kiểm tra xem có click vào pothole không
+                PointAnnotation clickedPothole = null;
+                double minDistance = 0.0001; // Khoảng cách tối thiểu tính bằng độ (degrees)
 
-                setRoute.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        fetchRoute(point);
+                List<PointAnnotation> annotations = pointAnnotationManager.getAnnotations();
+                for (PointAnnotation annotation : annotations) {
+                    Point annotationPoint = annotation.getPoint();
+
+                    // Tính khoảng cách giữa điểm click và marker
+                    double distance = Math.sqrt(
+                            Math.pow(annotationPoint.longitude() - point.longitude(), 2) +
+                                    Math.pow(annotationPoint.latitude() - point.latitude(), 2)
+                    );
+
+                    if (distance < minDistance) {
+                        clickedPothole = annotation;
+                        break;
                     }
-                });
+                }
+
+                if (clickedPothole != null) {
+                    // Nếu click vào pothole, hiển thị dialog
+                    PotholeData potholeData = potholeDataMap.get(clickedPothole.getId());
+                    if (potholeData != null) {
+                        showPotholeDetails(potholeData);
+                    }
+                } else {
+                    // Nếu click vào vị trí khác, xử lý set route
+                    pointAnnotationManager.deleteAll();
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.location);
+                    PointAnnotationOptions pointAnnotationOptions = new PointAnnotationOptions()
+                            .withTextAnchor(TextAnchor.CENTER)
+                            .withIconImage(bitmap)
+                            .withPoint(point);
+                    pointAnnotationManager.create(pointAnnotationOptions);
+
+                    setRoute.setOnClickListener(view -> fetchRoute(point));
+                }
                 return true;
             }
         });
@@ -728,6 +762,7 @@ public class mapbox extends AppCompatActivity {
 
                 runOnUiThread(() -> {
                     pointAnnotationManager.deleteAll();
+                    potholeDataMap.clear();
 
                     for (PotholeData pothole : potholes) {
                         Point point = Point.fromLngLat(pothole.getLongitude(), pothole.getLatitude());
@@ -738,10 +773,17 @@ public class mapbox extends AppCompatActivity {
                                 .withIconImage("pothole-marker")
                                 .withIconSize(1.5f);
 
-                        pointAnnotationManager.create(pointAnnotationOptions);
-                        Log.d("MainActivity", "Created marker at: " + pothole.getLatitude() + ", " + pothole.getLongitude());
+                        PointAnnotation annotation = pointAnnotationManager.create(pointAnnotationOptions);
+                        potholeDataMap.put(annotation.getId(), pothole);
                     }
 
+                    pointAnnotationManager.addClickListener(annotation -> {
+                        PotholeData clickedPothole = potholeDataMap.get(annotation.getId());
+                        if (clickedPothole != null) {
+                            showPotholeDetails(clickedPothole);
+                        }
+                        return true;
+                    });
 
                     if (!potholes.isEmpty()) {
                         List<Point> points = new ArrayList<>();
@@ -778,7 +820,6 @@ public class mapbox extends AppCompatActivity {
 
     private void initializePointAnnotationManager() {
         mapView.getMapboxMap().getStyle(style -> {
-            // Tạo point annotation manager từ annotations plugin
             AnnotationPlugin annotationPlugin = AnnotationPluginImplKt.getAnnotations(mapView);
             pointAnnotationManager = PointAnnotationManagerKt.createPointAnnotationManager(
                     annotationPlugin,
@@ -808,5 +849,10 @@ public class mapbox extends AppCompatActivity {
         } else {
             return String.format(Locale.getDefault(), "%.1f km", distanceInMeters / 1000);
         }
+    }
+
+    private void showPotholeDetails(PotholeData pothole) {
+        PotholeDetailDialog dialog = new PotholeDetailDialog(this, pothole);
+        dialog.show();
     }
 }

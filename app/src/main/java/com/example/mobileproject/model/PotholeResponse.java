@@ -1,6 +1,7 @@
 package com.example.mobileproject.model;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.Date;
 
 public class PotholeResponse {
     @SerializedName("id")
@@ -41,6 +42,10 @@ public class PotholeResponse {
         return severity;
     }
 
+    public long getTimestamp() {
+        return timestamp;
+    }
+
     public String getCreatedAt() {
         return createdAt;
     }
@@ -56,7 +61,9 @@ public class PotholeResponse {
                 latitude,
                 longitude,
                 severity,
-                userId
+                userId,
+                null,
+                createdAt != null ? new Date(timestamp * 1000) : null
         );
         return data;
     }
