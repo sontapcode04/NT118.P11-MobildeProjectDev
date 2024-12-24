@@ -1,6 +1,7 @@
 package com.example.mobileproject;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -21,5 +22,11 @@ public class profile extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("LifecycleProfile", "Profile onDestroy called");
     }
 }

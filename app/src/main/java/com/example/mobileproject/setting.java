@@ -3,6 +3,7 @@ package com.example.mobileproject;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,6 +20,7 @@ public class setting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        Log.d("LifecycleSetting", "Setting onCreate called");
 
         // Ánh xạ các RelativeLayout
         RelativeLayout profileLayout = findViewById(R.id.btnProfile);
@@ -92,5 +94,41 @@ public class setting extends AppCompatActivity {
     private void handleProfile() {
         Intent intent = new Intent(setting.this, profile.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("LifecycleSetting", "Setting onPause called");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("LifecycleSetting", "Setting onRestart called");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("LifecycleSetting", "Setting onResume called");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("LifecycleSetting", "Setting onStart called");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("LifecycleSetting", "Setting onDestroy called");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("LifecycleSetting", "Setting onStop called");
     }
 }

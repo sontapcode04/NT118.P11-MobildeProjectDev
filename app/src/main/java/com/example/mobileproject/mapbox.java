@@ -10,6 +10,7 @@ import static com.mapbox.navigation.base.extensions.RouteOptionsExtensions.apply
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -119,6 +120,7 @@ import kotlin.coroutines.Continuation;
 import kotlin.coroutines.CoroutineContext;
 import kotlin.coroutines.EmptyCoroutineContext;
 import kotlin.jvm.functions.Function1;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -399,6 +401,10 @@ public class mapbox extends AppCompatActivity {
             }
         });
 
+        ////////////////////////////////
+       // SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        //int userId = sharedPreferences.getInt("user_id", -1);
+
         detectedPothole.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -409,7 +415,7 @@ public class mapbox extends AppCompatActivity {
                 Location currentLocation = navigationLocationProvider.getLastLocation();
                 double latitude = currentLocation.getLatitude();
                 double longitude = currentLocation.getLongitude();
-                int userId = 1; // mặc định
+                int userId = 2; // mặc định
                 String severity = "low"; // mặc định
 
                 // Tạo đối tượng Pothole
@@ -506,12 +512,14 @@ public class mapbox extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("LifecycleDashboard", "onResume called");
         potholeDetector.start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d("LifecycleDashboard", "onPause called");
         potholeDetector.stop();
     }
 
@@ -565,6 +573,7 @@ public class mapbox extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d("LifecycleDashboard", "onDestroy called");
         mapboxNavigation.onDestroy();
         mapboxNavigation.unregisterRoutesObserver(routesObserver);
         mapboxNavigation.unregisterLocationObserver(locationObserver);
@@ -710,5 +719,23 @@ public class mapbox extends AppCompatActivity {
                 Log.e("MainActivity", "Could not load pothole marker drawable");
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("LifecycleDashboard", "onRestart called");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("LifecycleDashboard", "onStart called");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("LifecycleDashboard", "onStop called");
     }
 }

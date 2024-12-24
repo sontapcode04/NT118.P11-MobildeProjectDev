@@ -28,12 +28,14 @@ public class dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
+        Log.d("LifecycleDashboard", "Dashboard onCreate called");
         AnhXa();
         ImageView setting = findViewById(R.id.imageViewSetting);
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(dashboard.this, setting.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });
@@ -176,5 +178,41 @@ public class dashboard extends AppCompatActivity {
         TextView NameUser = findViewById(R.id.NameUser);
         TextView ScoreUser = findViewById(R.id.ScoreUser);
         ImageView notification = findViewById(R.id.notificationIcon);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("LifecycleDashboard", "Dashboard onPause called");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("LifecycleDashboard", "Dashboard onRestart called");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("LifecycleDashboard", "Dashboard onStart called");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("LifecycleDashboard", "Dashboard onResume called");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("LifecycleDashboard", "Dashboard onDestroy called");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("LifecycleDashboard", "Dashboard onStop called");
     }
 }
