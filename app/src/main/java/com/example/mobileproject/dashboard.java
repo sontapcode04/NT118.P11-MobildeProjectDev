@@ -94,7 +94,9 @@ public class dashboard extends AppCompatActivity {
             @Override
             public void onSuccess(List<PotholeData> potholes) {
                 Log.d("Dashboard", "Successfully loaded " + potholes.size() + " potholes");
-
+                // tổng user
+                int totalUsers = 0;
+                int userIDPre = 0;
 
                 // Lọc potholes của user đang đăng nhập
                 List<PotholeData> userPotholes = new ArrayList<>();
@@ -102,7 +104,14 @@ public class dashboard extends AppCompatActivity {
                     if (pothole.getUserId() == currentUserId) {
                         userPotholes.add(pothole);
                     }
+                    if (userIDPre != pothole.getUserId()) {
+                        totalUsers++;
+                    }
+                    userIDPre = pothole.getUserId();
                 }
+
+                TextView soLuongUser = findViewById(R.id.UserOnline);
+                soLuongUser.setText(String.valueOf(totalUsers));
 
                 Log.d("Dashboard", "Filtered " + userPotholes.size() + " potholes for current user");
 
@@ -110,10 +119,13 @@ public class dashboard extends AppCompatActivity {
                 int lowCount = 0;
                 int mediumCount = 0;
                 int highCount = 0;
-
+                int totalPotholes = userPotholes.size();
+                Log.d("Dashboard", "Total potholes for current user: " + totalPotholes);
+                TextView soLuongPothole = findViewById(R.id.soLuongPothole);
+                soLuongPothole.setText(String.valueOf(totalPotholes));
 
                 for (PotholeData pothole : userPotholes) {
-                    String severity = pothole.getSeverity(); // Chuyển về số nguyên
+                    String severity = pothole.getSeverity();
 
                     switch (severity) {
                         case "1":

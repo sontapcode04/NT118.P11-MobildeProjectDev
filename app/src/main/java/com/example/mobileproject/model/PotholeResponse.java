@@ -2,6 +2,11 @@ package com.example.mobileproject.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class PotholeResponse {
     @SerializedName("id")
     private String id;
@@ -56,7 +61,8 @@ public class PotholeResponse {
                 latitude,
                 longitude,
                 severity,
-                userId
+                userId,
+                createdAt != null ? new Date(createdAt) : null
         );
         return data;
     }
