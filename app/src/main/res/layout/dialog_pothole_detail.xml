@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pothole Details"
+        android:text="@string/pothole_details"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@android:color/black"
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location"
+            android:text="@string/location"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@android:color/black"/>
@@ -52,7 +52,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Severity"
+            android:text="@string/severity"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@android:color/black"/>
@@ -77,7 +77,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Detection Time"
+            android:text="@string/detection_time"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@android:color/black"/>
@@ -93,11 +93,12 @@
 
     <Button
         android:id="@+id/btnClose"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Close"
-        android:textColor="@android:color/white"
-        android:background="@drawable/button_background"
-        android:layout_marginTop="8dp"/>
+        android:layout_width="375dp"
+        android:layout_height="65dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="@color/blue"
+        android:text="@string/close"
+        android:textStyle="bold" />
 
 </LinearLayout>

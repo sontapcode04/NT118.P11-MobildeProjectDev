@@ -1,5 +1,5 @@
 <resources>
-        <string name="app_name">MobileProject</string>
+        <string name="app_name">Pothole</string>
         <string name="tvEmail">Email</string>
         <string name="editTextPassword">Password</string>
         <string name="forgotPass">Forgot password</string>
@@ -55,6 +55,11 @@
         <string name="system_settings">system settings</string>
         <string name="sign_in_cap">SIGN IN</string>
         <string name="password">Password</string>
+    <string name="close">Close</string>
+        <string name="pothole_details">Pothole Details</string>
+        <string name="location">Location</string>
+        <string name="severity">Severity</string>
+        <string name="detection_time">Detection Time</string>
 
 
 </resources>

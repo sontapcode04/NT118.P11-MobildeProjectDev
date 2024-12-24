@@ -35,6 +35,8 @@
             android:src="@drawable/back" />
 
     </FrameLayout>
+
+
     <LinearLayout
         android:id="@+id/linear_layout_imageuser"
         android:layout_width="match_parent"
@@ -52,7 +54,6 @@
 
         </ImageView>
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/linear_layout_person_information"

@@ -2,10 +2,8 @@ package com.example.mobileproject.model;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.Date;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 public class PotholeResponse {
@@ -22,14 +20,13 @@ public class PotholeResponse {
     private String severity;
 
     @SerializedName("timestamp")
-    private String timestamp;
+    private long timestamp;
 
     @SerializedName("created_at")
     private String createdAt;
 
     @SerializedName("user_id")
     private int userId;
-
 
     public String getId() {
         return id;
@@ -59,22 +56,24 @@ public class PotholeResponse {
         return userId;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-
     public PotholeData getData() {
-        PotholeData data = new PotholeData(
+        Date date = null;
+        try {
+            if (createdAt != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                date = sdf.parse(createdAt);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return new PotholeData(
                 Integer.parseInt(id),
                 latitude,
                 longitude,
                 severity,
                 userId,
-                null,
-                createdAt != null ? new Date(timestamp * 1000) : null
-
+                date
         );
-        return data;
     }
 }

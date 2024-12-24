@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MobileProject</string>
+    <string name="app_name">Pothole</string>
     <string name="profile">Hồ sơ</string>
     <string name="change_password">Đổi mật khẩu</string>
     <string name="reward">Phần thưởng</string>
@@ -54,5 +54,10 @@
     <string name="english">Tiếng Việt</string>
     <string name="sign_in_cap">ĐĂNG NHẬP</string>
     <string name="password">Mật khẩu</string>
+    <string name="close">Đóng</string>
+    <string name="pothole_details">Chi tiết ổ gà</string>
+    <string name="location">Vị trí</string>
+    <string name="severity">Mức độ</string>
+    <string name="detection_time">Thời gian</string>
     <string name="default_web_client_id">203414613649-jg8ritueegk47se9dio12fe8btafs97e.apps.googleusercontent.com</string>
 </resources>
