@@ -38,6 +38,7 @@ public class PotholeResponse {
         return longitude;
     }
 
+
     public String getSeverity() {
         return severity;
     }

@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.google.firebase.auth)
     implementation(libs.play.services.auth)
     implementation(libs.mpandroidchart)
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
     //implementation ("com.mapbox.maps:plugin-annotation:10.15.0")
     implementation("com.mapbox.navigation:ui-maneuver:2.15.2")
     implementation("com.mapbox.navigation:android:2.17.4")
