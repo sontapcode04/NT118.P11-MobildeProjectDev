@@ -119,26 +119,26 @@ public class dashboard extends AppCompatActivity {
                 int lowCount = 0;
                 int mediumCount = 0;
                 int highCount = 0;
-                int totalPotholes = userPotholes.size();
-                Log.d("Dashboard", "Total potholes for current user: " + totalPotholes);
-                TextView soLuongPothole = findViewById(R.id.soLuongPothole);
-                soLuongPothole.setText(String.valueOf(totalPotholes));
 
-                for (PotholeData pothole : userPotholes) {
-                    String severity = pothole.getSeverity();
 
-                    switch (severity) {
-                        case "1":
-                            lowCount++;
-                            break;
-                        case "2":
-                            mediumCount++;
-                            break;
-                        case "3":
-                            highCount++;
-                            break;
-                        default:
-                            Log.w("Dashboard", "Unknown severity: " + severity);
+                for (PotholeData pothole : potholes) {
+                    try {
+                        int severity = Integer.parseInt(pothole.getSeverity()); // Parse String to int
+                        switch (severity) {
+                            case 1:
+                                lowCount++;
+                                break;
+                            case 2:
+                                mediumCount++;
+                                break;
+                            case 3:
+                                highCount++;
+                                break;
+                            default:
+                                Log.w("Dashboard", "Unknown severity: " + severity);
+                        }
+                    } catch (NumberFormatException e) {
+                        Log.e("Dashboard", "Error parsing severity: " + pothole.getSeverity(), e);
                     }
                 }
 

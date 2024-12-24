@@ -8,7 +8,10 @@ import com.example.mobileproject.api.ApiService;
 import com.example.mobileproject.model.PotholeData;
 import com.example.mobileproject.model.PotholeResponse;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,13 +58,26 @@ public class PotholeRepository {
                             Log.e(TAG, "Error parsing ID: " + e.getMessage());
                         }
 
+                        // Parse created_at string to Date
+                        Date createdAt = null;
+                        try {
+                            if (item.getCreatedAt() != null) {
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                                createdAt = sdf.parse(item.getCreatedAt());
+                            }
+                        } catch (Exception e) {
+                            Log.e(TAG, "Error parsing created_at: " + e.getMessage());
+                        }
+
                         potholes.add(new PotholeData(
                                 id,
                                 item.getLatitude(),
                                 item.getLongitude(),
                                 item.getSeverity(),
                                 item.getUserId(),
-                                null
+                                null,
+                                createdAt
+
                         ));
                     }
                     callback.onSuccess(potholes);
@@ -73,7 +89,6 @@ public class PotholeRepository {
             @Override
             public void onFailure(Call<List<PotholeResponse>> call, Throwable t) {
                 Log.e(TAG, "Error getting potholes: " + t.getMessage());
-                Log.e(TAG, "Stack trace: ", t);
                 callback.onError("Network error: " + t.getMessage());
             }
         });

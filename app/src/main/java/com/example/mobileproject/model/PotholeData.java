@@ -68,6 +68,16 @@ public class PotholeData {
         this.createdAt = createdAt;
     }
 
+    @Override
+    public String toString() {
+        return "PotholeData{" +
+                "latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", severity='" + severity + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
+
     public String getFormattedCreatedAt() {
         if (createdAt == null) {
             return "N/A"; // Giá trị mặc định nếu null
@@ -75,4 +85,5 @@ public class PotholeData {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         return formatter.format(createdAt);
     }
+
 }

@@ -43,15 +43,13 @@ public class setting extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.coner));
         dialog.setCancelable(false);
 
-        // Ánh xạ các nút trong dialog
+
         btnLogout = dialog.findViewById(R.id.btnLogout);
         btnCancel = dialog.findViewById(R.id.btnCancel);
-
-        // Xử lý sự kiện nút Cancel trong dialog
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss(); // Đóng dialog
+                dialog.dismiss();
             }
         });
 
@@ -74,8 +72,6 @@ public class setting extends AppCompatActivity {
             }
         });
 
-
-        // Xử lý sự kiện khi nhấn vào profileLayout
         profileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +79,6 @@ public class setting extends AppCompatActivity {
             }
         });
 
-        // Xử lý sự kiện khi nhấn vào changePassword
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,11 +87,25 @@ public class setting extends AppCompatActivity {
             }
         });
 
-        // Hiển thị dialog khi nhấn vào logoutLayout
+
         languageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toggleLanguage();
+            }
+        });
+        logoutLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                performLogout();
             }
         });
     }
@@ -196,5 +205,18 @@ public class setting extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         Log.d("LifecycleSetting", "Setting onStop called");
+    }
+
+    // Thêm phương thức performLogout
+    private void performLogout() {
+        getSharedPreferences("user_prefs", MODE_PRIVATE)
+                .edit()
+                .clear()
+                .apply();
+
+        Intent intent = new Intent(setting.this, welcome.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }
